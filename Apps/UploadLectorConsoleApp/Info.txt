@@ -1,0 +1,1 @@
+﻿You can generate json from SSMS for table contents: fill up data easily and generate json even easier.

@@ -1,0 +1,22 @@
+[
+  {
+    "FirstName": "David",
+    "LastName": "Breckx",
+    "Abbreviation": "db",
+    "Phone": null,
+    "Mobile": null,
+    "Email": "david.breck@hogent.be",
+    "Type": "Statutair vacant",
+    "RegistrationState": "Onbekend"
+  },
+  {
+    "FirstName": "Luc",
+    "LastName": "Vervoort",
+    "Abbreviation": "lv",
+    "Phone": null,
+    "Mobile": null,
+    "Email": "luc.vervoort@hogent.be",
+    "Type": "Statutair vacant",
+    "RegistrationState": "Onbekend"
+  }
+]
