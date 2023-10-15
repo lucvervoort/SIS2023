@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SIS.Infrastructure.EFRepository.Models;
 
@@ -118,8 +116,7 @@ public partial class SisDbContext : DbContext
     public virtual DbSet<TopicCategory> TopicCategories { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:ActiveCS"] /*"Data Source=localhost,3025;Initial Catalog=SIS_DVLP;Persist Security Info=True;User ID=sis;TrustServerCertificate=True;Password=ZwarteRidder007"*/);
+        => optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:ActiveCS"]);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

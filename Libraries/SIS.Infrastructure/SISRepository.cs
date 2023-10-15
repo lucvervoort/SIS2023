@@ -33,7 +33,17 @@ namespace SIS.Infrastructure
                 var p = dbPeople.Where(person => person.PersonId == lector.PersonId).FirstOrDefault();
                 if (p != null)
                 {
-                    var l = new Lector { Abbreviation = lector.Abbreviation, Email = string.IsNullOrEmpty(lector.Email) ? p.Email : lector.Email, FirstName = p.FirstName, LastName = p.LastName, Mobile = string.IsNullOrEmpty(lector.Mobile) ? p.Mobile : lector.Mobile, Phone = p.Phone, Type = lector.LectorType.Description, RegistrationState = lector.RegistrationState.Description };
+                    var l = new Lector 
+                    { 
+                        Abbreviation = lector.Abbreviation, 
+                        Email = string.IsNullOrEmpty(lector.Email) ? p.Email : lector.Email, 
+                        FirstName = p.FirstName, 
+                        LastName = p.LastName, 
+                        Mobile = string.IsNullOrEmpty(lector.Mobile) ? p.Mobile : lector.Mobile, 
+                        Phone = p.Phone, 
+                        Type = lector.LectorType.Description, 
+                        RegistrationState = lector.RegistrationState.Description 
+                    };
                     _lectors.Add(p.FirstName + " " + p.LastName, l);
                 }
             }
@@ -49,6 +59,7 @@ namespace SIS.Infrastructure
 
         public void Add(Lector lector)
         {
+            // TODO
             // Test if lector is already present in dictionary
             // If not, add lector to dictionary and update database...
             EFRepository.Models.Person newPerson = new() { };

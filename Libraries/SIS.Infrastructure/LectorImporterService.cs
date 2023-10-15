@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SIS.Domain;
 using SIS.Domain.Interfaces;
-using System.Data;
 
 namespace SIS.Infrastructure
 {

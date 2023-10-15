@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{20E9D352-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8D84B963-FBB6-4990-8F2B-A2582F8F6D4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.Infrastructure.EFRepository", "Libraries\SIS.Infrastructure.EFRepository\SIS.Infrastructure.EFRepository.csproj", "{8110724D-0325-4BCF-85A9-0D4E35059D08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.Infrastructure.EFRepository", "Libraries\SIS.Infrastructure.EFRepository\SIS.Infrastructure.EFRepository.csproj", "{8110724D-0325-4BCF-85A9-0D4E35059D08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadLectorConsoleApp", "Apps\UploadLectorConsoleApp\UploadLectorConsoleApp.csproj", "{4351C6EE-9A77-4CCE-AD4D-9D0159F96D2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UploadLectorConsoleApp", "Apps\UploadLectorConsoleApp\UploadLectorConsoleApp.csproj", "{4351C6EE-9A77-4CCE-AD4D-9D0159F96D2E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SIS.Infrastructure.ThirdParty", "SIS.Infrastructure.ThirdParty", "{5384FFDE-80DE-4BFD-9AC4-279B61F6A6B6}"
 EndProject
@@ -32,7 +32,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "In", "In", "{7A36BE3C-7B49-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Out", "Out", "{4EDE531E-218A-442C-BE59-CC6255A56A8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.Domain", "Libraries\SIS.Domain\SIS.Domain\SIS.Domain.csproj", "{8CDDFA55-0F3A-4D09-8552-CEC9CF78BFD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.Domain", "Libraries\SIS.Domain\SIS.Domain\SIS.Domain.csproj", "{8CDDFA55-0F3A-4D09-8552-CEC9CF78BFD0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SISApi", "Apps\SISApi\SISApi.csproj", "{BB7CC31F-CB82-411B-8326-15DC4BE45500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.API", "Libraries\SIS.API\SIS.API\SIS.API.csproj", "{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +68,14 @@ Global
 		{8CDDFA55-0F3A-4D09-8552-CEC9CF78BFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CDDFA55-0F3A-4D09-8552-CEC9CF78BFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CDDFA55-0F3A-4D09-8552-CEC9CF78BFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB7CC31F-CB82-411B-8326-15DC4BE45500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB7CC31F-CB82-411B-8326-15DC4BE45500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB7CC31F-CB82-411B-8326-15DC4BE45500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB7CC31F-CB82-411B-8326-15DC4BE45500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +91,8 @@ Global
 		{7A36BE3C-7B49-4C90-BCF1-0CF26B0722F2} = {04F77243-348F-4FBF-89EC-44E05C0145C0}
 		{4EDE531E-218A-442C-BE59-CC6255A56A8B} = {04F77243-348F-4FBF-89EC-44E05C0145C0}
 		{8CDDFA55-0F3A-4D09-8552-CEC9CF78BFD0} = {553D56EC-850F-4950-87D8-EE087E30ACF6}
+		{BB7CC31F-CB82-411B-8326-15DC4BE45500} = {20E9D352-6D87-46A6-B176-0636BAEEE4A0}
+		{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE} = {553D56EC-850F-4950-87D8-EE087E30ACF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42EA0099-0828-4F80-826E-1166F889E264}

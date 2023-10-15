@@ -24,6 +24,9 @@ SET IDENTITY_INSERT [dbo].[LectorType] ON
 INSERT INTO [dbo].[LectorType] ([LectorTypeId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (1, N'Onbekend', N'2023-10-15 08:00:07', N'2023-10-15 08:00:07', 0)
 INSERT INTO [dbo].[LectorType] ([LectorTypeId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (2, N'Statutair vacant', N'2023-10-15 08:00:23', N'2023-10-15 08:00:23', 0)
 SET IDENTITY_INSERT [dbo].[LectorType] OFF
+SET IDENTITY_INSERT [dbo].[RegistrationState] ON
+INSERT INTO [dbo].[RegistrationState] ([RegistrationStateId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (1, N'Onbekend', N'2023-10-15 08:01:48', N'2023-10-15 08:01:48', 0)
+SET IDENTITY_INSERT [dbo].[RegistrationState] OFF
 SET IDENTITY_INSERT [dbo].[Lector] ON
 INSERT INTO [dbo].[Lector] ([LectorId], [Abbreviation], [Mobile], [Email], [AssignmentPercentage], [LectorTypeId], [RegistrationStateId], [PersonId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (3, N'db', NULL, N'david.breck@hogent.be', 0, 2, 1, 1, N'2023-10-15 08:01:58', N'2023-10-15 08:01:58', 0)
 INSERT INTO [dbo].[Lector] ([LectorId], [Abbreviation], [Mobile], [Email], [AssignmentPercentage], [LectorTypeId], [RegistrationStateId], [PersonId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (4, N'lv', NULL, N'luc.vervoort@hogent.be', 0, 2, 1, 2, N'2023-10-15 08:02:24', N'2023-10-15 08:02:24', 0)
