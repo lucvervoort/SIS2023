@@ -41,9 +41,9 @@ public partial class SisDbContext : DbContext
 
     public virtual DbSet<CourseGroup> CourseGroups { get; set; }
 
-    public virtual DbSet<CourseGroupLector> CourseGroupLectors { get; set; }
+    public virtual DbSet<CourseGroupTeacher> CourseGroupTeachers { get; set; }
 
-    public virtual DbSet<CourseGroupLectorGroup> CourseGroupLectorGroups { get; set; }
+    public virtual DbSet<CourseGroupTeacherGroup> CourseGroupTeacherGroups { get; set; }
 
     public virtual DbSet<CourseGroupStudent> CourseGroupStudents { get; set; }
 
@@ -65,25 +65,25 @@ public partial class SisDbContext : DbContext
 
     public virtual DbSet<LearningOutcome> LearningOutcomes { get; set; }
 
-    public virtual DbSet<Lector> Lectors { get; set; }
+    public virtual DbSet<Teacher> Teachers { get; set; }
 
-    public virtual DbSet<LectorAssignmentPercentageInterest> LectorAssignmentPercentageInterests { get; set; }
+    public virtual DbSet<TeacherAssignmentPercentageInterest> TeacherAssignmentPercentageInterests { get; set; }
 
-    public virtual DbSet<LectorCoordinationRoleInterest> LectorCoordinationRoleInterests { get; set; }
+    public virtual DbSet<TeacherCoordinationRoleInterest> TeacherCoordinationRoleInterests { get; set; }
 
-    public virtual DbSet<LectorCourseInterest> LectorCourseInterests { get; set; }
+    public virtual DbSet<TeacherCourseInterest> TeacherCourseInterests { get; set; }
 
-    public virtual DbSet<LectorGroup> LectorGroups { get; set; }
+    public virtual DbSet<TeacherGroup> TeacherGroups { get; set; }
 
-    public virtual DbSet<LectorInterest> LectorInterests { get; set; }
+    public virtual DbSet<TeacherInterest> TeacherInterests { get; set; }
 
-    public virtual DbSet<LectorLectorGroup> LectorLectorGroups { get; set; }
+    public virtual DbSet<TeacherTeacherGroup> TeacherTeacherGroups { get; set; }
 
-    public virtual DbSet<LectorLocationInterest> LectorLocationInterests { get; set; }
+    public virtual DbSet<TeacherLocationInterest> TeacherLocationInterests { get; set; }
 
-    public virtual DbSet<LectorPreference> LectorPreferences { get; set; }
+    public virtual DbSet<TeacherPreference> TeacherPreferences { get; set; }
 
-    public virtual DbSet<LectorType> LectorTypes { get; set; }
+    public virtual DbSet<TeacherType> TeacherTypes { get; set; }
 
     public virtual DbSet<Location> Locations { get; set; }
 
@@ -345,13 +345,13 @@ public partial class SisDbContext : DbContext
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
         });
 
-        modelBuilder.Entity<CourseGroupLector>(entity =>
+        modelBuilder.Entity<CourseGroupTeacher>(entity =>
         {
-            entity.HasKey(e => e.CourseGroupLectorId).HasName("PK__CourseGr__7ADEC824241FC74F");
+            entity.HasKey(e => e.CourseGroupTeacherId).HasName("PK__CourseGr__7ADEC824241FC74F");
 
-            entity.ToTable("CourseGroup_Lector");
+            entity.ToTable("CourseGroup_Teacher");
 
-            entity.Property(e => e.CourseGroupLectorId).HasColumnName("CourseGroup_LectorId");
+            entity.Property(e => e.CourseGroupTeacherId).HasColumnName("CourseGroup_TeacherId");
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("AUTO_TIME_CREATION");
@@ -360,24 +360,24 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.CourseGroup).WithMany(p => p.CourseGroupLectors)
+            entity.HasOne(d => d.CourseGroup).WithMany(p => p.CourseGroupTeachers)
                 .HasForeignKey(d => d.CourseGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_CourseGroup_Lector_CourseGroupId");
+                .HasConstraintName("FK_CourseGroup_Teacher_CourseGroupId");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.CourseGroupLectors)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.CourseGroupTeachers)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_CourseGroup_Lector_LectorId");
+                .HasConstraintName("FK_CourseGroup_Teacher_TeacherId");
         });
 
-        modelBuilder.Entity<CourseGroupLectorGroup>(entity =>
+        modelBuilder.Entity<CourseGroupTeacherGroup>(entity =>
         {
-            entity.HasKey(e => e.CourseGroupLectorGroupId).HasName("PK__CourseGr__20E6CB52A0A0553B");
+            entity.HasKey(e => e.CourseGroupTeacherGroupId).HasName("PK__CourseGr__20E6CB52A0A0553B");
 
-            entity.ToTable("CourseGroup_LectorGroup");
+            entity.ToTable("CourseGroup_TeacherGroup");
 
-            entity.Property(e => e.CourseGroupLectorGroupId).HasColumnName("CourseGroup_LectorGroupId");
+            entity.Property(e => e.CourseGroupTeacherGroupId).HasColumnName("CourseGroup_TeacherGroupId");
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("AUTO_TIME_CREATION");
@@ -386,15 +386,15 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.CourseGroup).WithMany(p => p.CourseGroupLectorGroups)
+            entity.HasOne(d => d.CourseGroup).WithMany(p => p.CourseGroupTeacherGroups)
                 .HasForeignKey(d => d.CourseGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_CourseGroup_LectorGroup_CourseGroupId");
+                .HasConstraintName("FK_CourseGroup_TeacherGroup_CourseGroupId");
 
-            entity.HasOne(d => d.LectorGroup).WithMany(p => p.CourseGroupLectorGroups)
-                .HasForeignKey(d => d.LectorGroupId)
+            entity.HasOne(d => d.TeacherGroup).WithMany(p => p.CourseGroupTeacherGroups)
+                .HasForeignKey(d => d.TeacherGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_CourseGroup_LectorGroup_LectorGroupId");
+                .HasConstraintName("FK_CourseGroup_TeacherGroup_TeacherGroupId");
         });
 
         modelBuilder.Entity<CourseGroupStudent>(entity =>
@@ -605,11 +605,11 @@ public partial class SisDbContext : DbContext
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
         });
 
-        modelBuilder.Entity<Lector>(entity =>
+        modelBuilder.Entity<Teacher>(entity =>
         {
-            entity.HasKey(e => e.LectorId).HasName("PK__Lector__75D607A28ACD39E7");
+            entity.HasKey(e => e.TeacherId).HasName("PK__Teacher__75D607A28ACD39E7");
 
-            entity.ToTable("Lector");
+            entity.ToTable("Teacher");
 
             entity.Property(e => e.Abbreviation)
                 .HasMaxLength(10)
@@ -622,31 +622,31 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
             entity.Property(e => e.Email).HasMaxLength(255);
-            entity.Property(e => e.LectorTypeId).HasDefaultValueSql("((1))");
+            entity.Property(e => e.TeacherTypeId).HasDefaultValueSql("((1))");
             entity.Property(e => e.Mobile).HasMaxLength(255);
             entity.Property(e => e.RegistrationStateId).HasDefaultValueSql("((1))");
 
-            entity.HasOne(d => d.LectorType).WithMany(p => p.Lectors)
-                .HasForeignKey(d => d.LectorTypeId)
+            entity.HasOne(d => d.TeacherType).WithMany(p => p.Teachers)
+                .HasForeignKey(d => d.TeacherTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Lector_LectorType");
+                .HasConstraintName("FK_Teacher_TeacherType");
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Lectors)
+            entity.HasOne(d => d.Person).WithMany(p => p.Teachers)
                 .HasForeignKey(d => d.PersonId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Lector_Person");
+                .HasConstraintName("FK_Teacher_Person");
 
-            entity.HasOne(d => d.RegistrationState).WithMany(p => p.Lectors)
+            entity.HasOne(d => d.RegistrationState).WithMany(p => p.Teachers)
                 .HasForeignKey(d => d.RegistrationStateId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Lector_RegistrationState");
+                .HasConstraintName("FK_Teacher_RegistrationState");
         });
 
-        modelBuilder.Entity<LectorAssignmentPercentageInterest>(entity =>
+        modelBuilder.Entity<TeacherAssignmentPercentageInterest>(entity =>
         {
-            entity.HasKey(e => e.LectorAssignmentPercentageInterestId).HasName("PK__LectorAs__5433DF836B08E20E");
+            entity.HasKey(e => e.TeacherAssignmentPercentageInterestId).HasName("PK__TeacherAs__5433DF836B08E20E");
 
-            entity.ToTable("LectorAssignmentPercentageInterest");
+            entity.ToTable("TeacherAssignmentPercentageInterest");
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -656,27 +656,27 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.AcademicYear).WithMany(p => p.LectorAssignmentPercentageInterests)
+            entity.HasOne(d => d.AcademicYear).WithMany(p => p.TeacherAssignmentPercentageInterests)
                 .HasForeignKey(d => d.AcademicYearId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorAssignmentPercentageInterest_AcademicYear");
+                .HasConstraintName("FK_TeacherAssignmentPercentageInterest_AcademicYear");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.LectorAssignmentPercentageInterests)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.TeacherAssignmentPercentageInterests)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorAssignmentPercentageInterest_Lector");
+                .HasConstraintName("FK_TeacherAssignmentPercentageInterest_Teacher");
 
-            entity.HasOne(d => d.Period).WithMany(p => p.LectorAssignmentPercentageInterests)
+            entity.HasOne(d => d.Period).WithMany(p => p.TeacherAssignmentPercentageInterests)
                 .HasForeignKey(d => d.PeriodId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorAssignmentPercentageInterest_Period");
+                .HasConstraintName("FK_TeacherAssignmentPercentageInterest_Period");
         });
 
-        modelBuilder.Entity<LectorCoordinationRoleInterest>(entity =>
+        modelBuilder.Entity<TeacherCoordinationRoleInterest>(entity =>
         {
-            entity.HasKey(e => e.LectorCoordinationRoleInterestId).HasName("PK__LectorCo__A3BC1AA572ABAA09");
+            entity.HasKey(e => e.TeacherCoordinationRoleInterestId).HasName("PK__TeacherCo__A3BC1AA572ABAA09");
 
-            entity.ToTable("LectorCoordinationRoleInterest");
+            entity.ToTable("TeacherCoordinationRoleInterest");
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -686,32 +686,32 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.AcademicYear).WithMany(p => p.LectorCoordinationRoleInterests)
+            entity.HasOne(d => d.AcademicYear).WithMany(p => p.TeacherCoordinationRoleInterests)
                 .HasForeignKey(d => d.AcademicYearId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCoordinationRoleInterest_AcademicYear");
+                .HasConstraintName("FK_TeacherCoordinationRoleInterest_AcademicYear");
 
-            entity.HasOne(d => d.CoordinationRole).WithMany(p => p.LectorCoordinationRoleInterests)
+            entity.HasOne(d => d.CoordinationRole).WithMany(p => p.TeacherCoordinationRoleInterests)
                 .HasForeignKey(d => d.CoordinationRoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCoordinationRoleInterest_CoordinationRoleId");
+                .HasConstraintName("FK_TeacherCoordinationRoleInterest_CoordinationRoleId");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.LectorCoordinationRoleInterests)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.TeacherCoordinationRoleInterests)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCoordinationRoleInterest_Lector");
+                .HasConstraintName("FK_TeacherCoordinationRoleInterest_Teacher");
 
-            entity.HasOne(d => d.LectorPreference).WithMany(p => p.LectorCoordinationRoleInterests)
-                .HasForeignKey(d => d.LectorPreferenceId)
+            entity.HasOne(d => d.TeacherPreference).WithMany(p => p.TeacherCoordinationRoleInterests)
+                .HasForeignKey(d => d.TeacherPreferenceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCoordinationRoleInterest_LectorPreference");
+                .HasConstraintName("FK_TeacherCoordinationRoleInterest_TeacherPreference");
         });
 
-        modelBuilder.Entity<LectorCourseInterest>(entity =>
+        modelBuilder.Entity<TeacherCourseInterest>(entity =>
         {
-            entity.HasKey(e => e.LectorCourseInterestId).HasName("PK__LectorCo__DD0E8E110AEB4014");
+            entity.HasKey(e => e.TeacherCourseInterestId).HasName("PK__TeacherCo__DD0E8E110AEB4014");
 
-            entity.ToTable("LectorCourseInterest");
+            entity.ToTable("TeacherCourseInterest");
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -721,32 +721,32 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.AcademicYear).WithMany(p => p.LectorCourseInterests)
+            entity.HasOne(d => d.AcademicYear).WithMany(p => p.TeacherCourseInterests)
                 .HasForeignKey(d => d.AcademicYearId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCourseInterest_AcademicYear");
+                .HasConstraintName("FK_TeacherCourseInterest_AcademicYear");
 
-            entity.HasOne(d => d.Course).WithMany(p => p.LectorCourseInterests)
+            entity.HasOne(d => d.Course).WithMany(p => p.TeacherCourseInterests)
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCourseInterest_Course");
+                .HasConstraintName("FK_TeacherCourseInterest_Course");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.LectorCourseInterests)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.TeacherCourseInterests)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCourseInterest_Lector");
+                .HasConstraintName("FK_TeacherCourseInterest_Teacher");
 
-            entity.HasOne(d => d.LectorPreference).WithMany(p => p.LectorCourseInterests)
-                .HasForeignKey(d => d.LectorPreferenceId)
+            entity.HasOne(d => d.TeacherPreference).WithMany(p => p.TeacherCourseInterests)
+                .HasForeignKey(d => d.TeacherPreferenceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorCourseInterest_LectorPreference");
+                .HasConstraintName("FK_TeacherCourseInterest_TeacherPreference");
         });
 
-        modelBuilder.Entity<LectorGroup>(entity =>
+        modelBuilder.Entity<TeacherGroup>(entity =>
         {
-            entity.HasKey(e => e.LectorGroupId).HasName("PK__LectorGr__688D3759E16BEE4D");
+            entity.HasKey(e => e.TeacherGroupId).HasName("PK__TeacherGr__688D3759E16BEE4D");
 
-            entity.ToTable("LectorGroup");
+            entity.ToTable("TeacherGroup");
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -757,13 +757,13 @@ public partial class SisDbContext : DbContext
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
         });
 
-        modelBuilder.Entity<LectorInterest>(entity =>
+        modelBuilder.Entity<TeacherInterest>(entity =>
         {
-            entity.HasKey(e => e.LectorInterestId).HasName("PK__LectorIn__EAC3F57D3BD9DC8B");
+            entity.HasKey(e => e.TeacherInterestId).HasName("PK__TeacherIn__EAC3F57D3BD9DC8B");
 
-            entity.ToTable("LectorInterest");
+            entity.ToTable("TeacherInterest");
 
-            entity.Property(e => e.LectorInterestId).ValueGeneratedNever();
+            entity.Property(e => e.TeacherInterestId).ValueGeneratedNever();
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("AUTO_TIME_CREATION");
@@ -772,24 +772,24 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.AcademicYear).WithMany(p => p.LectorInterests)
+            entity.HasOne(d => d.AcademicYear).WithMany(p => p.TeacherInterests)
                 .HasForeignKey(d => d.AcademicYearId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorInterest_AcademicYear");
+                .HasConstraintName("FK_TeacherInterest_AcademicYear");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.LectorInterests)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.TeacherInterests)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorInterest_Lector");
+                .HasConstraintName("FK_TeacherInterest_Teacher");
         });
 
-        modelBuilder.Entity<LectorLectorGroup>(entity =>
+        modelBuilder.Entity<TeacherTeacherGroup>(entity =>
         {
-            entity.HasKey(e => e.LectorLectorGroupId).HasName("PK__Lector_L__21D2FF4743F32450");
+            entity.HasKey(e => e.TeacherTeacherGroupId).HasName("PK__Teacher_L__21D2FF4743F32450");
 
-            entity.ToTable("Lector_LectorGroup");
+            entity.ToTable("Teacher_TeacherGroup");
 
-            entity.Property(e => e.LectorLectorGroupId).HasColumnName("Lector_LectorGroupId");
+            entity.Property(e => e.TeacherTeacherGroupId).HasColumnName("Teacher_TeacherGroupId");
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("AUTO_TIME_CREATION");
@@ -798,22 +798,22 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.LectorGroup).WithMany(p => p.LectorLectorGroups)
-                .HasForeignKey(d => d.LectorGroupId)
+            entity.HasOne(d => d.TeacherGroup).WithMany(p => p.TeacherTeacherGroups)
+                .HasForeignKey(d => d.TeacherGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Lector_LectorGroup_LectorGroup");
+                .HasConstraintName("FK_Teacher_TeacherGroup_TeacherGroup");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.LectorLectorGroups)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.TeacherTeacherGroups)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Lector_LectorGroup_Lector");
+                .HasConstraintName("FK_Teacher_TeacherGroup_Teacher");
         });
 
-        modelBuilder.Entity<LectorLocationInterest>(entity =>
+        modelBuilder.Entity<TeacherLocationInterest>(entity =>
         {
-            entity.HasKey(e => e.LectorLocationInterestId).HasName("PK__LectorLo__860FCA9315512128");
+            entity.HasKey(e => e.TeacherLocationInterestId).HasName("PK__TeacherLo__860FCA9315512128");
 
-            entity.ToTable("LectorLocationInterest");
+            entity.ToTable("TeacherLocationInterest");
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -823,34 +823,34 @@ public partial class SisDbContext : DbContext
                 .HasColumnName("AUTO_TIME_UPDATE");
             entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
 
-            entity.HasOne(d => d.AcademicYear).WithMany(p => p.LectorLocationInterests)
+            entity.HasOne(d => d.AcademicYear).WithMany(p => p.TeacherLocationInterests)
                 .HasForeignKey(d => d.AcademicYearId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorLocationInterest_AcademicYear");
+                .HasConstraintName("FK_TeacherLocationInterest_AcademicYear");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.LectorLocationInterests)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.TeacherLocationInterests)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorLocationInterest_Lector");
+                .HasConstraintName("FK_TeacherLocationInterest_Teacher");
 
-            entity.HasOne(d => d.LectorPreference).WithMany(p => p.LectorLocationInterests)
-                .HasForeignKey(d => d.LectorPreferenceId)
+            entity.HasOne(d => d.TeacherPreference).WithMany(p => p.TeacherLocationInterests)
+                .HasForeignKey(d => d.TeacherPreferenceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorLocationInterest_LectorPreference");
+                .HasConstraintName("FK_TeacherLocationInterest_TeacherPreference");
 
-            entity.HasOne(d => d.Location).WithMany(p => p.LectorLocationInterests)
+            entity.HasOne(d => d.Location).WithMany(p => p.TeacherLocationInterests)
                 .HasForeignKey(d => d.LocationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_LectorLocationInterest_Course");
+                .HasConstraintName("FK_TeacherLocationInterest_Course");
         });
 
-        modelBuilder.Entity<LectorPreference>(entity =>
+        modelBuilder.Entity<TeacherPreference>(entity =>
         {
-            entity.HasKey(e => e.LectorPreferenceId).HasName("PK__LectorPr__846636AFCD0A8972");
+            entity.HasKey(e => e.TeacherPreferenceId).HasName("PK__TeacherPr__846636AFCD0A8972");
 
-            entity.ToTable("LectorPreference");
+            entity.ToTable("TeacherPreference");
 
-            entity.Property(e => e.LectorPreferenceId).ValueGeneratedNever();
+            entity.Property(e => e.TeacherPreferenceId).ValueGeneratedNever();
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("AUTO_TIME_CREATION");
@@ -861,11 +861,11 @@ public partial class SisDbContext : DbContext
             entity.Property(e => e.Preference).HasDefaultValueSql("((1))");
         });
 
-        modelBuilder.Entity<LectorType>(entity =>
+        modelBuilder.Entity<TeacherType>(entity =>
         {
-            entity.HasKey(e => e.LectorTypeId).HasName("PK__LectorTy__89621148F8EE5498");
+            entity.HasKey(e => e.TeacherTypeId).HasName("PK__TeacherTy__89621148F8EE5498");
 
-            entity.ToTable("LectorType");
+            entity.ToTable("TeacherType");
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1038,10 +1038,10 @@ public partial class SisDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Scheduling_Course");
 
-            entity.HasOne(d => d.Lector).WithMany(p => p.Schedules)
-                .HasForeignKey(d => d.LectorId)
+            entity.HasOne(d => d.Teacher).WithMany(p => p.Schedules)
+                .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Scheduling_Lector");
+                .HasConstraintName("FK_Scheduling_Teacher");
 
             entity.HasOne(d => d.Room).WithMany(p => p.Schedules)
                 .HasForeignKey(d => d.RoomId)

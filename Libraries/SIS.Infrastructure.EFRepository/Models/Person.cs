@@ -29,7 +29,7 @@ public partial class Person
 
     public virtual ICollection<Contact> Contacts { get; set; } = new List<Contact>();
 
-    public virtual ICollection<Lector> Lectors { get; set; } = new List<Lector>();
+    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 }

@@ -29,7 +29,7 @@ public partial class Course
 
     public virtual CourseType CourseType { get; set; } = null!;
 
-    public virtual ICollection<LectorCourseInterest> LectorCourseInterests { get; set; } = new List<LectorCourseInterest>();
+    public virtual ICollection<TeacherCourseInterest> TeacherCourseInterests { get; set; } = new List<TeacherCourseInterest>();
 
     public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 }

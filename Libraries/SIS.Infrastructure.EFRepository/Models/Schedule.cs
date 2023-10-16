@@ -19,7 +19,7 @@ public partial class Schedule
 
     public int RoomId { get; set; }
 
-    public int LectorId { get; set; }
+    public int TeacherId { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -31,7 +31,7 @@ public partial class Schedule
 
     public virtual CourseGroup CourseGroup { get; set; } = null!;
 
-    public virtual Lector Lector { get; set; } = null!;
+    public virtual Teacher Teacher { get; set; } = null!;
 
     public virtual Room Room { get; set; } = null!;
 

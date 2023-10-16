@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class LectorAssignmentPercentageInterest
+public partial class TeacherAssignmentPercentageInterest
 {
-    public int LectorAssignmentPercentageInterestId { get; set; }
+    public int TeacherAssignmentPercentageInterestId { get; set; }
 
     public int AcademicYearId { get; set; }
 
-    public int LectorId { get; set; }
+    public int TeacherId { get; set; }
 
     public int PeriodId { get; set; }
 
@@ -23,7 +23,7 @@ public partial class LectorAssignmentPercentageInterest
 
     public virtual AcademicYear AcademicYear { get; set; } = null!;
 
-    public virtual Lector Lector { get; set; } = null!;
+    public virtual Teacher Teacher { get; set; } = null!;
 
     public virtual Period Period { get; set; } = null!;
 }

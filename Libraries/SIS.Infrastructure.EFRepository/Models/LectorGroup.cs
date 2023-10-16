@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class LectorGroup
+public partial class TeacherGroup
 {
-    public int LectorGroupId { get; set; }
+    public int TeacherGroupId { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -15,7 +15,7 @@ public partial class LectorGroup
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<CourseGroupLectorGroup> CourseGroupLectorGroups { get; set; } = new List<CourseGroupLectorGroup>();
+    public virtual ICollection<CourseGroupTeacherGroup> CourseGroupTeacherGroups { get; set; } = new List<CourseGroupTeacherGroup>();
 
-    public virtual ICollection<LectorLectorGroup> LectorLectorGroups { get; set; } = new List<LectorLectorGroup>();
+    public virtual ICollection<TeacherTeacherGroup> TeacherTeacherGroups { get; set; } = new List<TeacherTeacherGroup>();
 }

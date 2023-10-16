@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class LectorPreference
+public partial class TeacherPreference
 {
-    public int LectorPreferenceId { get; set; }
+    public int TeacherPreferenceId { get; set; }
 
     public int Preference { get; set; }
 
@@ -17,9 +17,9 @@ public partial class LectorPreference
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<LectorCoordinationRoleInterest> LectorCoordinationRoleInterests { get; set; } = new List<LectorCoordinationRoleInterest>();
+    public virtual ICollection<TeacherCoordinationRoleInterest> TeacherCoordinationRoleInterests { get; set; } = new List<TeacherCoordinationRoleInterest>();
 
-    public virtual ICollection<LectorCourseInterest> LectorCourseInterests { get; set; } = new List<LectorCourseInterest>();
+    public virtual ICollection<TeacherCourseInterest> TeacherCourseInterests { get; set; } = new List<TeacherCourseInterest>();
 
-    public virtual ICollection<LectorLocationInterest> LectorLocationInterests { get; set; } = new List<LectorLocationInterest>();
+    public virtual ICollection<TeacherLocationInterest> TeacherLocationInterests { get; set; } = new List<TeacherLocationInterest>();
 }

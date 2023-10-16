@@ -21,5 +21,5 @@ public partial class Location
 
     public virtual Campus Campus { get; set; } = null!;
 
-    public virtual ICollection<LectorLocationInterest> LectorLocationInterests { get; set; } = new List<LectorLocationInterest>();
+    public virtual ICollection<TeacherLocationInterest> TeacherLocationInterests { get; set; } = new List<TeacherLocationInterest>();
 }

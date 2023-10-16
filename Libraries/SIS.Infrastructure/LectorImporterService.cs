@@ -6,13 +6,13 @@ using SIS.Domain.Interfaces;
 
 namespace SIS.Infrastructure
 {
-    public class LectorImporterService : IImporter
+    public class TeacherImporterService : IImporter
     {
-        private readonly ILogger<LectorImporterService> _logger;
+        private readonly ILogger<TeacherImporterService> _logger;
         private readonly IConfiguration _configuration;
         private readonly ISISRepository _repository;
 
-        public LectorImporterService(ILogger<LectorImporterService> logger, IConfiguration configuration, ISISRepository repository)
+        public TeacherImporterService(ILogger<TeacherImporterService> logger, IConfiguration configuration, ISISRepository repository)
         {
             _logger = logger;
             _configuration = configuration;
@@ -21,9 +21,8 @@ namespace SIS.Infrastructure
 
         public void Import()
         {
-            string json = File.ReadAllText(Path.Combine(_configuration["JsonDataPath"], "Lectoren.json"));
-            var lectoren = JsonConvert.DeserializeObject<List<Lector>>(json);
-            //var repository = new SISRepository(_logger, _configuration);
+            string json = File.ReadAllText(Path.Combine(_configuration["JsonDataPath"], "Teacheren.json"));
+            var lectoren = JsonConvert.DeserializeObject<List<Teacher>>(json);
             foreach (var l in lectoren)
             {
                 _repository.Add(l);

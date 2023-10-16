@@ -15,9 +15,9 @@ public partial class CourseGroup
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<CourseGroupLectorGroup> CourseGroupLectorGroups { get; set; } = new List<CourseGroupLectorGroup>();
+    public virtual ICollection<CourseGroupTeacherGroup> CourseGroupTeacherGroups { get; set; } = new List<CourseGroupTeacherGroup>();
 
-    public virtual ICollection<CourseGroupLector> CourseGroupLectors { get; set; } = new List<CourseGroupLector>();
+    public virtual ICollection<CourseGroupTeacher> CourseGroupTeachers { get; set; } = new List<CourseGroupTeacher>();
 
     public virtual ICollection<CourseGroupStudentGroup> CourseGroupStudentGroups { get; set; } = new List<CourseGroupStudentGroup>();
 

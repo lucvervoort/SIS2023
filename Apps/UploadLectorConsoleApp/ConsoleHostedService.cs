@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using SIS.Domain;
 using SIS.Domain.Interfaces;
-using System.Text.Json;
 
 internal partial class Program
 {
@@ -42,13 +39,13 @@ internal partial class Program
                         /*
                         // Example - use Server Explorer to enter data in SQLServer and C# code to generate json input file:
                         var repository = new SISRepository(_logger, _configuration);
-                        var lectoren = repository.Lectors;
+                        var lectoren = repository.Teachers;
                         var json = JsonSerializer.Serialize(lectoren.Values);
                         */
 
                         _logger.LogInformation("Importing...");
 
-                        //LectorImporterService lectorImporterService = new(_logger, _configuration, _repository);
+                        //TeacherImporterService lectorImporterService = new(_logger, _configuration, _repository);
                         _lectorImporterService.Import();
 
                         _exitCode = 0;

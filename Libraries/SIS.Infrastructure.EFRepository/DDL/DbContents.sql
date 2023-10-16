@@ -20,14 +20,16 @@ INSERT INTO [dbo].[Person] ([PersonID], [FirstName], [LastName], [Phone], [Mobil
 INSERT INTO [dbo].[Person] ([PersonID], [FirstName], [LastName], [Phone], [Mobile], [Email], [AddressId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (19, N'John', N'Doe', NULL, NULL, NULL, NULL, N'2023-10-15 07:56:08', N'2023-10-15 07:56:08', 0)
 INSERT INTO [dbo].[Person] ([PersonID], [FirstName], [LastName], [Phone], [Mobile], [Email], [AddressId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (20, N'Yanic', N'Inghelbrechts', NULL, NULL, N'yanic.ingelbrechts@hogent.be', NULL, N'2023-10-15 07:56:24', N'2023-10-15 07:56:24', 0)
 SET IDENTITY_INSERT [dbo].[Person] OFF
-SET IDENTITY_INSERT [dbo].[LectorType] ON
-INSERT INTO [dbo].[LectorType] ([LectorTypeId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (1, N'Onbekend', N'2023-10-15 08:00:07', N'2023-10-15 08:00:07', 0)
-INSERT INTO [dbo].[LectorType] ([LectorTypeId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (2, N'Statutair vacant', N'2023-10-15 08:00:23', N'2023-10-15 08:00:23', 0)
-SET IDENTITY_INSERT [dbo].[LectorType] OFF
+SET IDENTITY_INSERT [dbo].[TeacherType] ON
+INSERT INTO [dbo].[TeacherType] ([TeacherTypeId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (1, N'Onbekend', N'2023-10-15 08:00:07', N'2023-10-15 08:00:07', 0)
+INSERT INTO [dbo].[TeacherType] ([TeacherTypeId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (2, N'Statutair vacant', N'2023-10-15 08:00:23', N'2023-10-15 08:00:23', 0)
+SET IDENTITY_INSERT [dbo].[TeacherType] OFF
 SET IDENTITY_INSERT [dbo].[RegistrationState] ON
 INSERT INTO [dbo].[RegistrationState] ([RegistrationStateId], [Description], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (1, N'Onbekend', N'2023-10-15 08:01:48', N'2023-10-15 08:01:48', 0)
 SET IDENTITY_INSERT [dbo].[RegistrationState] OFF
-SET IDENTITY_INSERT [dbo].[Lector] ON
-INSERT INTO [dbo].[Lector] ([LectorId], [Abbreviation], [Mobile], [Email], [AssignmentPercentage], [LectorTypeId], [RegistrationStateId], [PersonId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (3, N'db', NULL, N'david.breck@hogent.be', 0, 2, 1, 1, N'2023-10-15 08:01:58', N'2023-10-15 08:01:58', 0)
-INSERT INTO [dbo].[Lector] ([LectorId], [Abbreviation], [Mobile], [Email], [AssignmentPercentage], [LectorTypeId], [RegistrationStateId], [PersonId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (4, N'lv', NULL, N'luc.vervoort@hogent.be', 0, 2, 1, 2, N'2023-10-15 08:02:24', N'2023-10-15 08:02:24', 0)
-SET IDENTITY_INSERT [dbo].[Lector] OFF
+SET IDENTITY_INSERT [dbo].[Teacher] ON
+INSERT INTO [dbo].[Teacher] ([TeacherId], [Abbreviation], [Mobile], [Email], [AssignmentPercentage], [TeacherTypeId], [RegistrationStateId], [PersonId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (3, N'db', NULL, N'david.breck@hogent.be', 0, 2, 1, 1, N'2023-10-15 08:01:58', N'2023-10-15 08:01:58', 0)
+INSERT INTO [dbo].[Teacher] ([TeacherId], [Abbreviation], [Mobile], [Email], [AssignmentPercentage], [TeacherTypeId], [RegistrationStateId], [PersonId], [AUTO_TIME_CREATION], [AUTO_TIME_UPDATE], [AUTO_UPDATE_COUNT]) VALUES (4, N'lv', NULL, N'luc.vervoort@hogent.be', 0, 2, 1, 2, N'2023-10-15 08:02:24', N'2023-10-15 08:02:24', 0)
+SET IDENTITY_INSERT [dbo].[Teacher] OFF
+
+-- TODO: upload table names to Concept table

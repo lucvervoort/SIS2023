@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class LectorLectorGroup
+public partial class TeacherTeacherGroup
 {
-    public int LectorLectorGroupId { get; set; }
+    public int TeacherTeacherGroupId { get; set; }
 
-    public int LectorGroupId { get; set; }
+    public int TeacherGroupId { get; set; }
 
-    public int LectorId { get; set; }
+    public int TeacherId { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -17,7 +17,7 @@ public partial class LectorLectorGroup
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual Lector Lector { get; set; } = null!;
+    public virtual Teacher Teacher { get; set; } = null!;
 
-    public virtual LectorGroup LectorGroup { get; set; } = null!;
+    public virtual TeacherGroup TeacherGroup { get; set; } = null!;
 }

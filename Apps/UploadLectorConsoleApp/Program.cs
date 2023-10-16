@@ -21,7 +21,7 @@ internal partial class Program
             {
                 services
                   .AddHostedService<ConsoleHostedService>()
-                  .AddSingleton<IImporter, LectorImporterService>()
+                  .AddSingleton<IImporter, TeacherImporterService>()
                   .AddSingleton<ISISRepository, SISRepository>()
                   .UseSuperConvertExcelService();
             })

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class CourseGroupLector
+public partial class CourseGroupTeacher
 {
-    public int CourseGroupLectorId { get; set; }
+    public int CourseGroupTeacherId { get; set; }
 
     public int CourseGroupId { get; set; }
 
-    public int LectorId { get; set; }
+    public int TeacherId { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -19,5 +19,5 @@ public partial class CourseGroupLector
 
     public virtual CourseGroup CourseGroup { get; set; } = null!;
 
-    public virtual Lector Lector { get; set; } = null!;
+    public virtual Teacher Teacher { get; set; } = null!;
 }

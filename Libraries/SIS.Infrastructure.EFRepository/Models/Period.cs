@@ -15,5 +15,5 @@ public partial class Period
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<LectorAssignmentPercentageInterest> LectorAssignmentPercentageInterests { get; set; } = new List<LectorAssignmentPercentageInterest>();
+    public virtual ICollection<TeacherAssignmentPercentageInterest> TeacherAssignmentPercentageInterests { get; set; } = new List<TeacherAssignmentPercentageInterest>();
 }

@@ -13,27 +13,27 @@ namespace SIS.Infrastructure
         private readonly IConfiguration _configuration;
         private readonly SisDbContext _context;
 
-        private Dictionary<string, Lector> _lectors;
-        public Dictionary<string, Lector> Lectors
+        private Dictionary<string, Teacher> _lectors;
+        public Dictionary<string, Teacher> Teachers
         {
             get
             {
                 if (_lectors != null) return _lectors;
-                return RefreshLectors();
+                return RefreshTeachers();
             }
         }
 
-        public Dictionary<string, Lector> RefreshLectors()
+        public Dictionary<string, Teacher> RefreshTeachers()
         {
             _lectors = new();
-            var dbLectors = _context.Lectors.Include(l => l.RegistrationState).Include(l => l.LectorType).ToList(); // ToList not to have multiple open readers, Include to eager load
+            var dbTeachers = _context.Teachers.Include(l => l.RegistrationState).Include(l => l.TeacherType).ToList(); // ToList not to have multiple open readers, Include to eager load
             var dbPeople = _context.People.ToList();
-            foreach (var lector in dbLectors)
+            foreach (var lector in dbTeachers)
             {
                 var p = dbPeople.Where(person => person.PersonId == lector.PersonId).FirstOrDefault();
                 if (p != null)
                 {
-                    var l = new Lector 
+                    var l = new Teacher 
                     { 
                         Abbreviation = lector.Abbreviation, 
                         Email = string.IsNullOrEmpty(lector.Email) ? p.Email : lector.Email, 
@@ -41,7 +41,7 @@ namespace SIS.Infrastructure
                         LastName = p.LastName, 
                         Mobile = string.IsNullOrEmpty(lector.Mobile) ? p.Mobile : lector.Mobile, 
                         Phone = p.Phone, 
-                        Type = lector.LectorType.Description, 
+                        Type = lector.TeacherType.Description, 
                         RegistrationState = lector.RegistrationState.Description 
                     };
                     _lectors.Add(p.FirstName + " " + p.LastName, l);
@@ -57,20 +57,20 @@ namespace SIS.Infrastructure
             _context = new SisDbContext(_configuration);
         }
 
-        public void Add(Lector lector)
+        public void Add(Teacher lector)
         {
             // TODO
             // Test if lector is already present in dictionary
             // If not, add lector to dictionary and update database...
             EFRepository.Models.Person newPerson = new() { };
-            EFRepository.Models.Lector newLector = new() { };
+            EFRepository.Models.Teacher newTeacher = new() { };
             // Test if person already present
             // Adapt person if needed
             // Fetch identity id
             _context.People.Add(newPerson);
             // Test if lector already present
             // Adapt lector if needed            
-            _context.Lectors.Add(newLector);
+            _context.Teachers.Add(newTeacher);
         }
 
         public void SaveChanges()

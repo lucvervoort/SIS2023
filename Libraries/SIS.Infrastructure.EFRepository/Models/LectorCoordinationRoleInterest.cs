@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class LectorCoordinationRoleInterest
+public partial class TeacherCoordinationRoleInterest
 {
-    public int LectorCoordinationRoleInterestId { get; set; }
+    public int TeacherCoordinationRoleInterestId { get; set; }
 
     public int AcademicYearId { get; set; }
 
-    public int LectorId { get; set; }
+    public int TeacherId { get; set; }
 
-    public int LectorPreferenceId { get; set; }
+    public int TeacherPreferenceId { get; set; }
 
     public int CoordinationRoleId { get; set; }
 
@@ -25,7 +25,7 @@ public partial class LectorCoordinationRoleInterest
 
     public virtual CoordinationRole CoordinationRole { get; set; } = null!;
 
-    public virtual Lector Lector { get; set; } = null!;
+    public virtual Teacher Teacher { get; set; } = null!;
 
-    public virtual LectorPreference LectorPreference { get; set; } = null!;
+    public virtual TeacherPreference TeacherPreference { get; set; } = null!;
 }

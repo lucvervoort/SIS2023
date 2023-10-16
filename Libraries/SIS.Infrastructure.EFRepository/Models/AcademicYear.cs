@@ -19,15 +19,15 @@ public partial class AcademicYear
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<LectorAssignmentPercentageInterest> LectorAssignmentPercentageInterests { get; set; } = new List<LectorAssignmentPercentageInterest>();
+    public virtual ICollection<TeacherAssignmentPercentageInterest> TeacherAssignmentPercentageInterests { get; set; } = new List<TeacherAssignmentPercentageInterest>();
 
-    public virtual ICollection<LectorCoordinationRoleInterest> LectorCoordinationRoleInterests { get; set; } = new List<LectorCoordinationRoleInterest>();
+    public virtual ICollection<TeacherCoordinationRoleInterest> TeacherCoordinationRoleInterests { get; set; } = new List<TeacherCoordinationRoleInterest>();
 
-    public virtual ICollection<LectorCourseInterest> LectorCourseInterests { get; set; } = new List<LectorCourseInterest>();
+    public virtual ICollection<TeacherCourseInterest> TeacherCourseInterests { get; set; } = new List<TeacherCourseInterest>();
 
-    public virtual ICollection<LectorInterest> LectorInterests { get; set; } = new List<LectorInterest>();
+    public virtual ICollection<TeacherInterest> TeacherInterests { get; set; } = new List<TeacherInterest>();
 
-    public virtual ICollection<LectorLocationInterest> LectorLocationInterests { get; set; } = new List<LectorLocationInterest>();
+    public virtual ICollection<TeacherLocationInterest> TeacherLocationInterests { get; set; } = new List<TeacherLocationInterest>();
 
     public virtual ICollection<StudentIoem> StudentIoems { get; set; } = new List<StudentIoem>();
 }

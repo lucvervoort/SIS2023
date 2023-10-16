@@ -1,10 +1,11 @@
-﻿-- github code
--- finish 2 teams DDL
--- In classroom: create database on VIC; use VIC in first code version
--- Assignment 1: configure VS Server Explorer
--- Assignment 2: create triggers for your domain and assign PK names; upgrade to bigint
--- Assignment 3: check if data can be uploaded - are all required fields and tables available?
--- Assignment 4: implement "soft delete"
+﻿-- 16/10/2023:
+-- Assignment 1: get github code - create DevOps project, attach github, send by email to lvet
+-- Assignment 2: configure vic
+-- Assignment 3: configure VS Server Explorer
+-- Assignment 4: create triggers for your domain and assign PK names; upgrade to bigint
+-- Assignment 5: check if data can be uploaded - are all required fields and tables available?
+-- Assignment 6: implement "soft delete"
+-- finish SQL 2 teams
 
 -----------
 -- CREATION
@@ -22,6 +23,20 @@ CREATE TABLE AcademicYear (
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
 	AUTO_UPDATE_COUNT INT NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0
+)
+GO
+
+if not exists (select * from sysobjects where name='Trajectory' and xtype='U')
+CREATE TABLE Trajectory (
+    TrajectoryId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(512) NOT NULL,
+	Description NVARCHAR(MAX) NULL,
+
+   	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
 
 	IsDeleted BIT NOT NULL DEFAULT 0
 )
@@ -55,9 +70,28 @@ CREATE TABLE Course (
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
 	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
 
-	IsDeleted BIT NOT NULL DEFAULT 0
+	IsDeleted BIT NOT NULL DEFAULT 0,
 
     CONSTRAINT FK_Course_CourseType FOREIGN KEY (CourseTypeId) REFERENCES CourseType(CourseTypeId)
+)
+GO
+
+if not exists (select * from sysobjects where name='CourseTrajectory' and xtype='U')
+CREATE TABLE CourseTrajectory (
+	CourseTrajectoryId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	CourseId INT NOT NULL,
+	TrajectoryId INT NOT NULL,
+	StudyPoints INT NOT NULL DEFAULT 0,
+	StudySheetUrl NVARCHAR(MAX) NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_CourseTrajectory_Course FOREIGN KEY (CourseId) REFERENCES Course(CourseId),
+    CONSTRAINT FK_CourseTrajectory_Trajectory FOREIGN KEY (TrajectoryId) REFERENCES Trajectory(TrajectoryId)
 )
 GO
 
@@ -79,6 +113,7 @@ CREATE TABLE Topic (
     TopicId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     TopicCategoryId INT NOT NULL,
     Description NVARCHAR(MAX) NOT NULL,
+	Priority INT NOT NULL,
 
    	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
@@ -88,10 +123,13 @@ CREATE TABLE Topic (
 
 	CONSTRAINT FK_Topic_TopicCategory FOREIGN KEY (TopicCategoryId) REFERENCES TopicCategory(TopicCategoryId)	
 )
+GO
 
-if not exists (select * from sysobjects where name='LearningOutcome' and xtype='U')
-CREATE TABLE LearningOutcome (
-    LearningOutcomeId INT NOT NULL PRIMARY KEY IDENTITY(1,1),	
+-- Opleidingsspecifiek or domeinspecifiek
+if not exists (select * from sysobjects where name='LearningOutcomeType' and xtype='U')
+CREATE TABLE LearningOutcomeType (
+    LearningOutcomeTypeId INT NOT NULL PRIMARY KEY IDENTITY(1,1),	
+	Name NVARCHAR(125) NOT NULL UNIQUE,
 	Description NVARCHAR(MAX) NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
@@ -102,7 +140,52 @@ CREATE TABLE LearningOutcome (
 )
 GO
 
--- LOTS OF WORK ...
+if not exists (select * from sysobjects where name='LearningOutcome' and xtype='U')
+CREATE TABLE LearningOutcome (
+    LearningOutcomeId INT NOT NULL PRIMARY KEY IDENTITY(1,1),	
+	Name NVARCHAR(125) NOT NULL UNIQUE,
+	Description NVARCHAR(MAX) NOT NULL,
+	LearningOutcomeTypeId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+	CONSTRAINT FK_LearningOutcome_LearningOutcomeType FOREIGN KEY (LearningOutcomeTypeId) REFERENCES LearningOutcomeType(LearningOutcomeTypeId)	
+)
+GO
+
+if not exists (select * from sysobjects where name='ControlLevel' and xtype='U')
+CREATE TABLE ControlLevel (
+    ControlLevelId INT NOT NULL PRIMARY KEY IDENTITY(1,1),	
+	Name NVARCHAR(125) NOT NULL UNIQUE,
+	Abbreviation NVARCHAR(1) NOT NULL UNIQUE,
+	Description NVARCHAR(MAX) NOT NULL,
+)
+GO
+
+if not exists (select * from sysobjects where name='LearningTarget' and xtype='U')
+CREATE TABLE LearningTarget (
+    LearningTargetId INT NOT NULL PRIMARY KEY IDENTITY(1,1),	
+	Name NVARCHAR(125) NOT NULL UNIQUE,
+	Description NVARCHAR(MAX) NOT NULL,
+	LearningOutcomeId INT NOT NULL,
+	ControlLevelId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0
+
+	CONSTRAINT FK_LearningTarget_LearningOutcome FOREIGN KEY (LearningOutcomeId) REFERENCES LearningOutcome(LearningOutcomeId),
+	CONSTRAINT FK_LearningTarget_ControlLevel FOREIGN KEY (ControlLevelId) REFERENCES ControlLevel(ControlLevelId)
+)
+GO
+
+-- TODO: topics for courses are quoted for students every semester ... Are the topics planned, were they covered (treated, applied, evaluated) for a specific student, ...
 
 -- Notes (Mohammad, Glenn)
 
@@ -192,7 +275,7 @@ CREATE TABLE Address
 GO
 
 ----------------------------------------
--- Persons, students, lectors, IOEM, ...
+-- Persons, students, Teachers, IOEM, ...
 ----------------------------------------
 
 if not exists (select * from sysobjects where name='Person' and xtype='U')
@@ -284,9 +367,9 @@ CREATE TABLE StudentIOEM (
 	CONSTRAINT FK_StudentIOEM_IOEM FOREIGN KEY (IOEMId) REFERENCES IOEM(IOEMId)
 )
 
-if not exists (select * from sysobjects where name='LectorType' and xtype='U')
-CREATE TABLE LectorType (
-   LectorTypeId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+if not exists (select * from sysobjects where name='TeacherType' and xtype='U')
+CREATE TABLE TeacherType (
+   TeacherTypeId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
    Description NVARCHAR(MAX) NOT NULL DEFAULT 'Temporary',
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
@@ -296,14 +379,14 @@ CREATE TABLE LectorType (
 	IsDeleted BIT NOT NULL DEFAULT 0
 )
 
-if not exists (select * from sysobjects where name='Lector' and xtype='U')
-CREATE TABLE Lector (
-	LectorId int IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+if not exists (select * from sysobjects where name='Teacher' and xtype='U')
+CREATE TABLE Teacher (
+	TeacherId int IDENTITY(1,1) NOT NULL PRIMARY KEY, 
 	Abbreviation NVARCHAR(10) NOT NULL DEFAULT '?',
 	Mobile nvarchar(255) NULL,
 	Email nvarchar(255) NULL,
 	AssignmentPercentage INT NOT NULL DEFAULT 0,
-	LectorTypeId INT NOT NULL DEFAULT 1,
+	TeacherTypeId INT NOT NULL DEFAULT 1,
 	RegistrationStateId INT NOT NULL DEFAULT 1, 
 	PersonId int NOT NULL, 
 
@@ -313,9 +396,9 @@ CREATE TABLE Lector (
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_Lector_Person FOREIGN KEY (PersonId) REFERENCES Person(PersonId),
-	CONSTRAINT FK_Lector_LectorType FOREIGN KEY (LectorTypeId) REFERENCES LectorType(LectorTypeId),	
-	CONSTRAINT FK_Lector_RegistrationState FOREIGN KEY (RegistrationStateId) REFERENCES RegistrationState(RegistrationStateId)
+	CONSTRAINT FK_Teacher_Person FOREIGN KEY (PersonId) REFERENCES Person(PersonId),
+	CONSTRAINT FK_Teacher_TeacherType FOREIGN KEY (TeacherTypeId) REFERENCES TeacherType(TeacherTypeId),	
+	CONSTRAINT FK_Teacher_RegistrationState FOREIGN KEY (RegistrationStateId) REFERENCES RegistrationState(RegistrationStateId)
 )
 GO
 
@@ -331,9 +414,9 @@ CREATE TABLE StudentGroup (
 	IsDeleted BIT NOT NULL DEFAULT 0
 );
 
-if not exists (select * from sysobjects where name='LectorGroup' and xtype='U')
-CREATE TABLE LectorGroup (
-	LectorGroupId INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+if not exists (select * from sysobjects where name='TeacherGroup' and xtype='U')
+CREATE TABLE TeacherGroup (
+	TeacherGroupId INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
 	Name NVARCHAR(MAX) NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
@@ -359,11 +442,11 @@ CREATE TABLE Student_StudentGroup (
 	CONSTRAINT FK_Student_StudentGroup_Student FOREIGN KEY (StudentId) REFERENCES Student(StudentId)
 );
 
-if not exists (select * from sysobjects where name='Lector_LectorGroup' and xtype='U')
-CREATE TABLE Lector_LectorGroup (
-	Lector_LectorGroupId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	LectorGroupId INT NOT NULL, 
-	LectorId INT NOT NULL,
+if not exists (select * from sysobjects where name='Teacher_TeacherGroup' and xtype='U')
+CREATE TABLE Teacher_TeacherGroup (
+	Teacher_TeacherGroupId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	TeacherGroupId INT NOT NULL, 
+	TeacherId INT NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
@@ -371,8 +454,8 @@ CREATE TABLE Lector_LectorGroup (
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_Lector_LectorGroup_LectorGroup FOREIGN KEY (LectorGroupId) REFERENCES LectorGroup(LectorGroupId),
-	CONSTRAINT FK_Lector_LectorGroup_Lector FOREIGN KEY (LectorId) REFERENCES Lector(LectorId)
+	CONSTRAINT FK_Teacher_TeacherGroup_TeacherGroup FOREIGN KEY (TeacherGroupId) REFERENCES TeacherGroup(TeacherGroupId),
+	CONSTRAINT FK_Teacher_TeacherGroup_Teacher FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId)
 );
 
 -------------
@@ -585,9 +668,9 @@ CREATE TABLE CoordinationRole (
 )
 GO
 
-if not exists (select * from sysobjects where name='LectorPreference' and xtype='U')
-CREATE TABLE LectorPreference (
-    LectorPreferenceId INT NOT NULL PRIMARY KEY,
+if not exists (select * from sysobjects where name='TeacherPreference' and xtype='U')
+CREATE TABLE TeacherPreference (
+    TeacherPreferenceId INT NOT NULL PRIMARY KEY,
     Preference INT NOT NULL DEFAULT 1,
     Description NVARCHAR(MAX),
 
@@ -599,13 +682,13 @@ CREATE TABLE LectorPreference (
 )
 GO
 
-if not exists (select * from sysobjects where name='LectorCoordinationRoleInterest' and xtype='U')
-CREATE TABLE LectorCoordinationRoleInterest
+if not exists (select * from sysobjects where name='TeacherCoordinationRoleInterest' and xtype='U')
+CREATE TABLE TeacherCoordinationRoleInterest
 (
-	LectorCoordinationRoleInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	TeacherCoordinationRoleInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	AcademicYearId INT NOT NULL,
-	LectorId INT NOT NULL,
-	LectorPreferenceId INT NOT NULL,
+	TeacherId INT NOT NULL,
+	TeacherPreferenceId INT NOT NULL,
 	CoordinationRoleId INT NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
@@ -614,20 +697,20 @@ CREATE TABLE LectorCoordinationRoleInterest
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_LectorCoordinationRoleInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
-	CONSTRAINT FK_LectorCoordinationRoleInterest_Lector FOREIGN KEY (LectorId) REFERENCES Lector(LectorId),
-	CONSTRAINT FK_LectorCoordinationRoleInterest_LectorPreference FOREIGN KEY (LectorPreferenceId) REFERENCES LectorPreference(LectorPreferenceId),
-	CONSTRAINT FK_LectorCoordinationRoleInterest_CoordinationRoleId FOREIGN KEY (CoordinationRoleId) REFERENCES CoordinationRole(CoordinationRoleId)
+	CONSTRAINT FK_TeacherCoordinationRoleInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
+	CONSTRAINT FK_TeacherCoordinationRoleInterest_Teacher FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId),
+	CONSTRAINT FK_TeacherCoordinationRoleInterest_TeacherPreference FOREIGN KEY (TeacherPreferenceId) REFERENCES TeacherPreference(TeacherPreferenceId),
+	CONSTRAINT FK_TeacherCoordinationRoleInterest_CoordinationRoleId FOREIGN KEY (CoordinationRoleId) REFERENCES CoordinationRole(CoordinationRoleId)
 )
 GO
 
-if not exists (select * from sysobjects where name='LectorCourseInterest' and xtype='U')
-CREATE TABLE LectorCourseInterest
+if not exists (select * from sysobjects where name='TeacherCourseInterest' and xtype='U')
+CREATE TABLE TeacherCourseInterest
 (
-	LectorCourseInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	TeacherCourseInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	AcademicYearId INT NOT NULL,
-	LectorId INT NOT NULL,
-	LectorPreferenceId INT NOT NULL,
+	TeacherId INT NOT NULL,
+	TeacherPreferenceId INT NOT NULL,
 	CourseId INT NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
@@ -636,19 +719,19 @@ CREATE TABLE LectorCourseInterest
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_LectorCourseInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
-	CONSTRAINT FK_LectorCourseInterest_Lector FOREIGN KEY (LectorId) REFERENCES Lector(LectorId),
-	CONSTRAINT FK_LectorCourseInterest_LectorPreference FOREIGN KEY (LectorPreferenceId) REFERENCES LectorPreference(LectorPreferenceId),
-	CONSTRAINT FK_LectorCourseInterest_Course FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
+	CONSTRAINT FK_TeacherCourseInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
+	CONSTRAINT FK_TeacherCourseInterest_Teacher FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId),
+	CONSTRAINT FK_TeacherCourseInterest_TeacherPreference FOREIGN KEY (TeacherPreferenceId) REFERENCES TeacherPreference(TeacherPreferenceId),
+	CONSTRAINT FK_TeacherCourseInterest_Course FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
 )
 GO
 
-if not exists (select * from sysobjects where name='LectorInterest' and xtype='U')
-CREATE TABLE LectorInterest
+if not exists (select * from sysobjects where name='TeacherInterest' and xtype='U')
+CREATE TABLE TeacherInterest
 (
-	LectorInterestId INT NOT NULL PRIMARY KEY,
+	TeacherInterestId INT NOT NULL PRIMARY KEY,
 	AcademicYearId INT NOT NULL,
-	LectorId INT NOT NULL,
+	TeacherId INT NOT NULL,
 	Description NVARCHAR(MAX),
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
@@ -657,18 +740,18 @@ CREATE TABLE LectorInterest
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_LectorInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
-	CONSTRAINT FK_LectorInterest_Lector FOREIGN KEY (LectorId) REFERENCES Lector(LectorId)
+	CONSTRAINT FK_TeacherInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
+	CONSTRAINT FK_TeacherInterest_Teacher FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId)
 )
 GO
 
-if not exists (select * from sysobjects where name='LectorLocationInterest' and xtype='U')
-CREATE TABLE LectorLocationInterest
+if not exists (select * from sysobjects where name='TeacherLocationInterest' and xtype='U')
+CREATE TABLE TeacherLocationInterest
 (
-	LectorLocationInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	TeacherLocationInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	AcademicYearId INT NOT NULL,
-	LectorId INT NOT NULL,
-	LectorPreferenceId INT NOT NULL,
+	TeacherId INT NOT NULL,
+	TeacherPreferenceId INT NOT NULL,
 	LocationId INT NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
@@ -677,10 +760,10 @@ CREATE TABLE LectorLocationInterest
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_LectorLocationInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
-	CONSTRAINT FK_LectorLocationInterest_Lector FOREIGN KEY (LectorId) REFERENCES Lector(LectorId),
-	CONSTRAINT FK_LectorLocationInterest_LectorPreference FOREIGN KEY (LectorPreferenceId) REFERENCES LectorPreference(LectorPreferenceId),
-	CONSTRAINT FK_LectorLocationInterest_Course FOREIGN KEY (LocationId) REFERENCES Location(LocationId)
+	CONSTRAINT FK_TeacherLocationInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
+	CONSTRAINT FK_TeacherLocationInterest_Teacher FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId),
+	CONSTRAINT FK_TeacherLocationInterest_TeacherPreference FOREIGN KEY (TeacherPreferenceId) REFERENCES TeacherPreference(TeacherPreferenceId),
+	CONSTRAINT FK_TeacherLocationInterest_Course FOREIGN KEY (LocationId) REFERENCES Location(LocationId)
 )
 GO
 
@@ -703,7 +786,7 @@ create TABLE SchedulingTimeslot (
 
 	SchedulingTimeslotId int NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	
-	-- Lector_ID int not null,
+	-- Teacher_ID int not null,
 	-- Jaardeel_ID int not null,
 	-- Tijdslot int not null,
 
@@ -712,18 +795,18 @@ create TABLE SchedulingTimeslot (
 	StartTime DateTime2(7) NOT NULL,
 	StopTime DateTime2(7) NOT NULL,
 	
-	-- FOREIGN KEY Lector_ID REFERENCES Lector(LectorId), --groep steije
+	-- FOREIGN KEY Teacher_ID REFERENCES Teacher(TeacherId), --groep steije
 	-- FOREIGN KEY Jaardeel_ID REFERENCES Jaardeel(Jaardeel_ID)
 	
 	-- tijdslotjes worden in de code omgezet naar het juiste uur
 	-- volgens volgende logica:
 	-- 6 werkdagen met elk 8 tijdslots = 48 tijdslots (zonder avond les)
-	-- Bv lector is beschikbaar voor slot 37:
+	-- Bv Teacher is beschikbaar voor slot 37:
 	-- 37 % 8 = 4
 	-- 37 - (8 x 4) = 5
 	-- Dus tijdslotje 37 is de 4de dag, 5de slotje, dus op donderdag het 5de lesuur
 	
-	-- enkel tijdslotjes die door de lector als ok zijn aangeduid worden bijgehouden in de db omdat er toch maar twee opties zijn
+	-- enkel tijdslotjes die door de Teacher als ok zijn aangeduid worden bijgehouden in de db omdat er toch maar twee opties zijn
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
@@ -733,13 +816,13 @@ create TABLE SchedulingTimeslot (
 )
 GO
 
-if not exists (select * from sysobjects where name='LectorAssignmentPercentageInterest' and xtype='U')
-CREATE TABLE LectorAssignmentPercentageInterest (
+if not exists (select * from sysobjects where name='TeacherAssignmentPercentageInterest' and xtype='U')
+CREATE TABLE TeacherAssignmentPercentageInterest (
 
-	LectorAssignmentPercentageInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	TeacherAssignmentPercentageInterestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 
 	AcademicYearId INT NOT NULL,
-	LectorId int not null,
+	TeacherId int not null,
 	PeriodId int not null,
 	Percentage int not null,
 
@@ -749,10 +832,10 @@ CREATE TABLE LectorAssignmentPercentageInterest (
 
 	IsDeleted BIT NOT NULL DEFAULT 0
 	
-	CONSTRAINT FK_LectorAssignmentPercentageInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
-	CONSTRAINT FK_LectorAssignmentPercentageInterest_Lector FOREIGN KEY (LectorId) REFERENCES Lector(LectorId),
-	CONSTRAINT FK_LectorAssignmentPercentageInterest_Period FOREIGN KEY (PeriodId) REFERENCES Period(PeriodId),
-	CONSTRAINT CHK_LectorAssignmentPercentageInterest_Percentage CHECK (Percentage >= 0 AND Percentage<= 100)
+	CONSTRAINT FK_TeacherAssignmentPercentageInterest_AcademicYear FOREIGN KEY (AcademicYearId) REFERENCES AcademicYear(AcademicYearId),
+	CONSTRAINT FK_TeacherAssignmentPercentageInterest_Teacher FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId),
+	CONSTRAINT FK_TeacherAssignmentPercentageInterest_Period FOREIGN KEY (PeriodId) REFERENCES Period(PeriodId),
+	CONSTRAINT CHK_TeacherAssignmentPercentageInterest_Percentage CHECK (Percentage >= 0 AND Percentage<= 100)
 );
 
 if not exists (select * from sysobjects where name='CourseGroup' and xtype='U')
@@ -768,11 +851,11 @@ CREATE TABLE CourseGroup(
 )
 GO
 
-if not exists (select * from sysobjects where name='CourseGroup_LectorGroup' and xtype='U')
-CREATE TABLE CourseGroup_LectorGroup (
-    CourseGroup_LectorGroupId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+if not exists (select * from sysobjects where name='CourseGroup_TeacherGroup' and xtype='U')
+CREATE TABLE CourseGroup_TeacherGroup (
+    CourseGroup_TeacherGroupId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     CourseGroupId INT NOT NULL,
-    LectorGroupId INT NOT NULL,
+    TeacherGroupId INT NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
@@ -780,8 +863,8 @@ CREATE TABLE CourseGroup_LectorGroup (
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_CourseGroup_LectorGroup_LectorGroupId FOREIGN KEY (LectorGroupId) REFERENCES LectorGroup(LectorGroupId),
-	CONSTRAINT FK_CourseGroup_LectorGroup_CourseGroupId FOREIGN KEY (CourseGroupId) REFERENCES CourseGroup(CourseGroupId)
+	CONSTRAINT FK_CourseGroup_TeacherGroup_TeacherGroupId FOREIGN KEY (TeacherGroupId) REFERENCES TeacherGroup(TeacherGroupId),
+	CONSTRAINT FK_CourseGroup_TeacherGroup_CourseGroupId FOREIGN KEY (CourseGroupId) REFERENCES CourseGroup(CourseGroupId)
 )
 GO
 
@@ -819,11 +902,11 @@ CREATE TABLE CourseGroup_Student (
 )
 GO
 
-if not exists (select * from sysobjects where name='CourseGroup_Lector' and xtype='U')
-CREATE TABLE CourseGroup_Lector (
-    CourseGroup_LectorId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+if not exists (select * from sysobjects where name='CourseGroup_Teacher' and xtype='U')
+CREATE TABLE CourseGroup_Teacher (
+    CourseGroup_TeacherId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     CourseGroupId INT NOT NULL,
-    LectorId INT NOT NULL,
+    TeacherId INT NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
@@ -831,21 +914,21 @@ CREATE TABLE CourseGroup_Lector (
 
 	IsDeleted BIT NOT NULL DEFAULT 0,
 
-	CONSTRAINT FK_CourseGroup_Lector_LectorId FOREIGN KEY (LectorId) REFERENCES Lector(LectorId),
-	CONSTRAINT FK_CourseGroup_Lector_CourseGroupId FOREIGN KEY (CourseGroupId) REFERENCES CourseGroup(CourseGroupId)
+	CONSTRAINT FK_CourseGroup_Teacher_TeacherId FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId),
+	CONSTRAINT FK_CourseGroup_Teacher_CourseGroupId FOREIGN KEY (CourseGroupId) REFERENCES CourseGroup(CourseGroupId)
 )
 GO
 
 if not exists (select * from sysobjects where name='Schedule' and xtype='U')
 create TABLE Schedule (
 	ScheduleId int NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	StartDate DATETIME2(7) not NULL,
-	StopDate DATETIME2(7) not null, 
+	StartDate DATETIME2(7) NOT NULL,
+	StopDate DATETIME2(7) NOT NULL, 
 	SchedulingTimeslotId INT NOT NULL,
-	CourseId int not null,
-	CourseGroupId int not null,
-	RoomId int not null,
-	LectorId int not null,
+	CourseId INT NOT NULL,
+	CourseGroupId INT NOT NULL,
+	RoomId INT NOT NULL,
+	TeacherId INT NOT NULL,
 
 	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
 	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
@@ -857,37 +940,15 @@ create TABLE Schedule (
 	CONSTRAINT FK_Scheduling_Course FOREIGN KEY (CourseId) REFERENCES Course(CourseId),
 	CONSTRAINT FK_Scheduling_CourseGroup FOREIGN KEY (CourseGroupId) REFERENCES CourseGroup(CourseGroupId),
 	CONSTRAINT FK_Scheduling_Room FOREIGN KEY (RoomId) REFERENCES Room(RoomId),
-	CONSTRAINT FK_Scheduling_Lector FOREIGN KEY (LectorId) REFERENCES Lector(LectorId),
+	CONSTRAINT FK_Scheduling_Teacher FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId),
 
 	CONSTRAINT CHK_DatumStartBeforeEnd CHECK (StartDate < StopDate)
 )
 GO
 
--- Academic calendar: Jeroen
-
--- LOTS OF WORK...
-
 -- Evaluations, Rubrics - Lari
--- 14/10/2023 niet ontvangen?
+-- 14/10/2023 no SQL?
 
--- LOTS OF WORK...
-
-IF EXISTS (select * from sysobjects where name like '%TG_AcademicYear_Update%')
-DROP TRIGGER TG_AcademicYear_Update
-GO
-Create trigger TG_AcademicYear_Update
-on AcademicYear after insert, update
-as
-begin
-if update(AcademicYearId) or update(Description) or update(StartDate) or update(StopDate) or update(IsDeleted) or exists (select * from deleted)
-BEGIN
-    UPDATE a
-        set a.AUTO_UPDATE_COUNT = a.AUTO_UPDATE_COUNT + 1, a.AUTO_TIME_UPDATE = GETDATE()
-    FROM deleted d
-        INNER JOIN AcademicYear a
-        ON a.AcademicYearId = d.AcademicYearId
-END 
-end
-GO
+-- Academic calendar: Jeroen
 
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class Lector
+public partial class Teacher
 {
-    public int LectorId { get; set; }
+    public int TeacherId { get; set; }
 
     public string Abbreviation { get; set; } = null!;
 
@@ -15,7 +15,7 @@ public partial class Lector
 
     public int AssignmentPercentage { get; set; }
 
-    public int LectorTypeId { get; set; }
+    public int TeacherTypeId { get; set; }
 
     public int RegistrationStateId { get; set; }
 
@@ -27,21 +27,21 @@ public partial class Lector
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<CourseGroupLector> CourseGroupLectors { get; set; } = new List<CourseGroupLector>();
+    public virtual ICollection<CourseGroupTeacher> CourseGroupTeachers { get; set; } = new List<CourseGroupTeacher>();
 
-    public virtual ICollection<LectorAssignmentPercentageInterest> LectorAssignmentPercentageInterests { get; set; } = new List<LectorAssignmentPercentageInterest>();
+    public virtual ICollection<TeacherAssignmentPercentageInterest> TeacherAssignmentPercentageInterests { get; set; } = new List<TeacherAssignmentPercentageInterest>();
 
-    public virtual ICollection<LectorCoordinationRoleInterest> LectorCoordinationRoleInterests { get; set; } = new List<LectorCoordinationRoleInterest>();
+    public virtual ICollection<TeacherCoordinationRoleInterest> TeacherCoordinationRoleInterests { get; set; } = new List<TeacherCoordinationRoleInterest>();
 
-    public virtual ICollection<LectorCourseInterest> LectorCourseInterests { get; set; } = new List<LectorCourseInterest>();
+    public virtual ICollection<TeacherCourseInterest> TeacherCourseInterests { get; set; } = new List<TeacherCourseInterest>();
 
-    public virtual ICollection<LectorInterest> LectorInterests { get; set; } = new List<LectorInterest>();
+    public virtual ICollection<TeacherInterest> TeacherInterests { get; set; } = new List<TeacherInterest>();
 
-    public virtual ICollection<LectorLectorGroup> LectorLectorGroups { get; set; } = new List<LectorLectorGroup>();
+    public virtual ICollection<TeacherTeacherGroup> TeacherTeacherGroups { get; set; } = new List<TeacherTeacherGroup>();
 
-    public virtual ICollection<LectorLocationInterest> LectorLocationInterests { get; set; } = new List<LectorLocationInterest>();
+    public virtual ICollection<TeacherLocationInterest> TeacherLocationInterests { get; set; } = new List<TeacherLocationInterest>();
 
-    public virtual LectorType LectorType { get; set; } = null!;
+    public virtual TeacherType TeacherType { get; set; } = null!;
 
     public virtual Person Person { get; set; } = null!;
 

@@ -17,5 +17,5 @@ public partial class CoordinationRole
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<LectorCoordinationRoleInterest> LectorCoordinationRoleInterests { get; set; } = new List<LectorCoordinationRoleInterest>();
+    public virtual ICollection<TeacherCoordinationRoleInterest> TeacherCoordinationRoleInterests { get; set; } = new List<TeacherCoordinationRoleInterest>();
 }
