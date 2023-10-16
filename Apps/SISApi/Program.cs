@@ -9,6 +9,8 @@ namespace SISApi
 
             // Add services to the container.
 
+            // TODO LVET: IRepository and Teacher call 
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -26,7 +28,6 @@ namespace SISApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

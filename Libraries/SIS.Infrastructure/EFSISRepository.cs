@@ -7,9 +7,9 @@ using SIS.Infrastructure.EFRepository.Context;
 
 namespace SIS.Infrastructure
 {
-    public class SISRepository : ISISRepository
+    public class EFSISRepository : ISISRepository
     {
-        private readonly ILogger<SISRepository> _logger;
+        private readonly ILogger<EFSISRepository> _logger;
         private readonly IConfiguration _configuration;
         private readonly SisDbContext _context;
 
@@ -50,7 +50,7 @@ namespace SIS.Infrastructure
             return _lectors;
         }
 
-        public SISRepository(ILogger<SISRepository> logger, IConfiguration configuration)
+        public EFSISRepository(ILogger<EFSISRepository> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
