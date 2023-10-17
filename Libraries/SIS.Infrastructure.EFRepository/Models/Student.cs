@@ -23,6 +23,8 @@ public partial class Student
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<CourseGroupStudent> CourseGroupStudents { get; set; } = new List<CourseGroupStudent>();
 
     public virtual Person Person { get; set; } = null!;

@@ -11,11 +11,15 @@ public partial class Topic
 
     public string Description { get; set; } = null!;
 
+    public int Priority { get; set; }
+
     public DateTime AutoTimeCreation { get; set; }
 
     public DateTime AutoTimeUpdate { get; set; }
 
     public int AutoUpdateCount { get; set; }
+
+    public bool IsDeleted { get; set; }
 
     public virtual TopicCategory TopicCategory { get; set; } = null!;
 }

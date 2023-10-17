@@ -15,5 +15,7 @@ public partial class Country
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 }

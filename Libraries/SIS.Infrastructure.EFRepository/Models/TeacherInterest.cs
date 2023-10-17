@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class StudentIoem
+public partial class TeacherInterest
 {
-    public int StudentIoemid { get; set; }
+    public int TeacherInterestId { get; set; }
 
     public int AcademicYearId { get; set; }
 
-    public int StudentId { get; set; }
+    public int TeacherId { get; set; }
 
-    public int Ioemid { get; set; }
+    public string? Description { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -23,7 +23,5 @@ public partial class StudentIoem
 
     public virtual AcademicYear AcademicYear { get; set; } = null!;
 
-    public virtual Ioem Ioem { get; set; } = null!;
-
-    public virtual Student Student { get; set; } = null!;
+    public virtual Teacher Teacher { get; set; } = null!;
 }

@@ -3,17 +3,13 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class SchedulingTimeslot
+public partial class LearningOutcomeType
 {
-    public int SchedulingTimeslotId { get; set; }
+    public int LearningOutcomeTypeId { get; set; }
 
     public string Name { get; set; } = null!;
 
     public string Description { get; set; } = null!;
-
-    public DateTime StartTime { get; set; }
-
-    public DateTime StopTime { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -23,5 +19,5 @@ public partial class SchedulingTimeslot
 
     public bool IsDeleted { get; set; }
 
-    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public virtual ICollection<LearningOutcome> LearningOutcomes { get; set; } = new List<LearningOutcome>();
 }

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class CourseType
+public partial class RubricRow
 {
-    public int CourseTypeId { get; set; }
+    public int RubricRowId { get; set; }
 
     public string? Name { get; set; }
+
+    public string? Description { get; set; }
+
+    public int MaxScore { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -17,5 +21,5 @@ public partial class CourseType
 
     public bool IsDeleted { get; set; }
 
-    public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
+    public virtual ICollection<RubricRubricRow> RubricRubricRows { get; set; } = new List<RubricRubricRow>();
 }

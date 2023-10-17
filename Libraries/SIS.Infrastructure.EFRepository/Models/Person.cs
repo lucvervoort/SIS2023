@@ -11,6 +11,8 @@ public partial class Person
 
     public string LastName { get; set; } = null!;
 
+    public string SortName { get; set; } = null!;
+
     public string? Phone { get; set; }
 
     public string? Mobile { get; set; }
@@ -25,11 +27,19 @@ public partial class Person
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Address? Address { get; set; }
 
     public virtual ICollection<Contact> Contacts { get; set; } = new List<Contact>();
 
-    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+    public virtual ICollection<Presence> Presences { get; set; } = new List<Presence>();
+
+    public virtual ICollection<RubricInstance> RubricInstanceAuthorPeople { get; set; } = new List<RubricInstance>();
+
+    public virtual ICollection<RubricInstance> RubricInstanceScorePeople { get; set; } = new List<RubricInstance>();
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+
+    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 }

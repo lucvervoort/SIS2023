@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class TeacherInterest
+public partial class Trajectory
 {
-    public int TeacherInterestId { get; set; }
+    public int TrajectoryId { get; set; }
 
-    public int AcademicYearId { get; set; }
-
-    public int TeacherId { get; set; }
+    public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
 
@@ -19,7 +17,7 @@ public partial class TeacherInterest
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual AcademicYear AcademicYear { get; set; } = null!;
+    public bool IsDeleted { get; set; }
 
-    public virtual Teacher Teacher { get; set; } = null!;
+    public virtual ICollection<CourseTrajectory> CourseTrajectories { get; set; } = new List<CourseTrajectory>();
 }

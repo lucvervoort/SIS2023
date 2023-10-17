@@ -27,13 +27,15 @@ public partial class Schedule
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Course Course { get; set; } = null!;
 
     public virtual CourseGroup CourseGroup { get; set; } = null!;
 
-    public virtual Teacher Teacher { get; set; } = null!;
-
     public virtual Room Room { get; set; } = null!;
 
     public virtual SchedulingTimeslot SchedulingTimeslot { get; set; } = null!;
+
+    public virtual Teacher Teacher { get; set; } = null!;
 }

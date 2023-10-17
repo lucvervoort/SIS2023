@@ -15,7 +15,9 @@ public partial class RegistrationState
 
     public int AutoUpdateCount { get; set; }
 
-    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+    public bool IsDeleted { get; set; }
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+
+    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 }

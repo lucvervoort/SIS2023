@@ -15,5 +15,7 @@ public partial class TeacherType
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 }

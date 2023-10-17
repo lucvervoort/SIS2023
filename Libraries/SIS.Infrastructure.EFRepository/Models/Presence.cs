@@ -3,19 +3,17 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class Contact
+public partial class Presence
 {
-    public int ContactId { get; set; }
+    public int PresenceId { get; set; }
+
+    public int OfficialCode { get; set; }
+
+    public string Qrcode { get; set; } = null!;
+
+    public int PresenceStateId { get; set; }
 
     public int PersonId { get; set; }
-
-    public int CompanyId { get; set; }
-
-    public DateTime Verified { get; set; }
-
-    public string FunctionRole { get; set; } = null!;
-
-    public string Department { get; set; } = null!;
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -25,7 +23,7 @@ public partial class Contact
 
     public bool IsDeleted { get; set; }
 
-    public virtual Company Company { get; set; } = null!;
-
     public virtual Person Person { get; set; } = null!;
+
+    public virtual PresenceState PresenceState { get; set; } = null!;
 }

@@ -17,6 +17,8 @@ public partial class CourseGroupStudent
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual CourseGroup CourseGroup { get; set; } = null!;
 
     public virtual Student Student { get; set; } = null!;

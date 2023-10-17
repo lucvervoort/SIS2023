@@ -9,6 +9,8 @@
 -- Assignment 5: check if data can be uploaded - are all required fields and tables available?
 -- Assignment 6: implement "soft delete"
 -- Assignment 7: install EF Tools
+-- Assignment 8: implement "logging" (Seq/SeriLog)
+-- Assignment 9: test raw sql
 
 -----------
 -- CREATION

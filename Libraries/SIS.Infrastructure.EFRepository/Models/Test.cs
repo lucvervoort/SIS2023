@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class CourseType
+public partial class Test
 {
-    public int CourseTypeId { get; set; }
+    public int TestId { get; set; }
 
-    public string? Name { get; set; }
+    public int OfficialCode { get; set; }
+
+    public int CourseId { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -17,5 +19,5 @@ public partial class CourseType
 
     public bool IsDeleted { get; set; }
 
-    public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
+    public virtual ICollection<Score> Scores { get; set; } = new List<Score>();
 }

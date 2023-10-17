@@ -23,6 +23,8 @@ public partial class Internship
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Company Company { get; set; } = null!;
 
     public virtual Education Education { get; set; } = null!;

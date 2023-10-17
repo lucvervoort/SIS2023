@@ -15,6 +15,8 @@ public partial class StudentGroup
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<CourseGroupStudentGroup> CourseGroupStudentGroups { get; set; } = new List<CourseGroupStudentGroup>();
 
     public virtual ICollection<StudentStudentGroup> StudentStudentGroups { get; set; } = new List<StudentStudentGroup>();

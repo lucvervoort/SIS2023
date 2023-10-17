@@ -15,5 +15,7 @@ public partial class Campus
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Location> Locations { get; set; } = new List<Location>();
 }
