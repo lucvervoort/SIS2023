@@ -39,15 +39,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.API", "Libraries\SIS.API\SIS.API\SIS.API.csproj", "{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SISTests", "SISTests\SISTests.csproj", "{78506B57-E16E-426E-8C1F-8E3521D8595E}"
-<<<<<<< HEAD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDL", "DDL", "{C43C3726-DF43-4B77-8CE4-C21AE314380D}"
 	ProjectSection(SolutionItems) = preProject
 		Data\DDL\DbContents.sql = Data\DDL\DbContents.sql
 		Data\DDL\DbCreate.sql = Data\DDL\DbCreate.sql
 		Data\DDL\DbDrop.sql = Data\DDL\DbDrop.sql
-		Data\DDL\DbTriggers.sql = Data\DDL\DbTriggers.sql
+		Data\DDL\DbTrigger_AcademicYear.sql = Data\DDL\DbTrigger_AcademicYear.sql
 	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
