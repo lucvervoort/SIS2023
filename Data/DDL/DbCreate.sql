@@ -1127,7 +1127,7 @@ CREATE TABLE RubricInstanceScore (
 
     CONSTRAINT FK_RubricInstanceScore_RubricInstance FOREIGN KEY (RubricInstanceId) REFERENCES RubricInstance(RubricInstanceId),
     CONSTRAINT FK_RubricInstanceScore_RubricRow FOREIGN KEY (RubricRubricRowId) REFERENCES Rubric_RubricRow(RubricRubricRowId),
-    CONSTRAINT FK_RubricInstanceScore_RubricColumn FOREIGN KEY (RubricRubicColumnId) REFERENCES Rubric_RubricColumn(RubricColumnId)
+    CONSTRAINT FK_RubricInstanceScore_RubricColumn FOREIGN KEY (RubricRubricColumnId) REFERENCES Rubric_RubricColumn(RubricRubricColumnId)
 )
 GO
 
