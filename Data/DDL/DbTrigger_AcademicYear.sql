@@ -1,5 +1,4 @@
-﻿
-IF EXISTS (select * from sysobjects where name like '%TG_AcademicYear_Update%')
+﻿IF EXISTS (select * from sysobjects where name like '%TG_AcademicYear_Update%')
 DROP TRIGGER TG_AcademicYear_Update
 GO
 Create trigger TG_AcademicYear_Update
