@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{04F77243-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "In", "In", "{7A36BE3C-7B49-4C90-BCF1-0CF26B0722F2}"
 	ProjectSection(SolutionItems) = preProject
-		Data\In\Lectoren.json = Data\In\Lectoren.json
+		Data\In\Teachers.json = Data\In\Teachers.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Out", "Out", "{4EDE531E-218A-442C-BE59-CC6255A56A8B}"
@@ -39,6 +39,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.API", "Libraries\SIS.API\SIS.API\SIS.API.csproj", "{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SISTests", "SISTests\SISTests.csproj", "{78506B57-E16E-426E-8C1F-8E3521D8595E}"
+<<<<<<< HEAD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDL", "DDL", "{C43C3726-DF43-4B77-8CE4-C21AE314380D}"
 	ProjectSection(SolutionItems) = preProject
@@ -47,7 +48,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDL", "DDL", "{C43C3726-DF4
 		Data\DDL\DbDrop.sql = Data\DDL\DbDrop.sql
 		Data\DDL\DbTriggers.sql = Data\DDL\DbTriggers.sql
 	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

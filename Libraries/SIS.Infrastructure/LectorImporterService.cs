@@ -21,7 +21,7 @@ namespace SIS.Infrastructure
 
         public void Import()
         {
-            string json = File.ReadAllText(Path.Combine(_configuration["JsonDataPath"], "Teacheren.json"));
+            string json = File.ReadAllText(Path.Combine(_configuration["JsonDataPath"], "Teachers.json"));
             var lectoren = JsonConvert.DeserializeObject<List<Teacher>>(json);
             foreach (var l in lectoren)
             {

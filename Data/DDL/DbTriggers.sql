@@ -17,4 +17,4 @@ END
 end
 GO
 
--- TODO: triggers for other classes
+-- TODO: triggers for other tables!

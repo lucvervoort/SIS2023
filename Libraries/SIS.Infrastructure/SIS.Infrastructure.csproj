@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SIS.Domain\SIS.Domain\SIS.Domain.csproj" />
-    <ProjectReference Include="..\SIS.Infrastructure.EFRepository\SIS.Infrastructure.EFRepository.csproj" />
-    <ProjectReference Include="..\SIS.Infrastructure.ThirdParty\SuperConvert\SuperConvert.Abstraction\SuperConvert.Abstraction.csproj" />
+    <Compile Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <None Remove="Interfaces\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\SIS.Domain\SIS.Domain\SIS.Domain.csproj" />
+    <ProjectReference Include="..\SIS.Infrastructure.EFRepository\SIS.Infrastructure.EFRepository.csproj" />
+    <ProjectReference Include="..\SIS.Infrastructure.ThirdParty\SuperConvert\SuperConvert.Abstraction\SuperConvert.Abstraction.csproj" />
   </ItemGroup>
 
 </Project>
