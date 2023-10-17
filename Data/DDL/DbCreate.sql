@@ -1,11 +1,14 @@
-﻿-- 16/10/2023:
--- Assignment 1: get github code - create DevOps project, attach github, send by email to lvet
--- Assignment 2: configure vic
--- Assignment 3: configure VS Server Explorer
--- Assignment 4: create triggers for your domain and assign PK names; upgrade to bigint
+﻿-- 17/10/2023:
+--------------
+-- ASSIGNMENTS
+--------------
+-- Assignment 1: get github code - create DevOps project, attach github - send DevOps link to LVET - add LVET to team
+-- Assignment 2: configure VIC access / test VIC access; develop using own local SQLServer instance (see ActiveCS)
+-- Assignment 3: configure VS Server Explorer - easy to maintain data; study how you can generate json to start from if an input file does not exist
+-- Assignment 4: create triggers for your domain and assign PK names in a separate file for each team next to DbTriggers.sql; upgrade to bigint
 -- Assignment 5: check if data can be uploaded - are all required fields and tables available?
 -- Assignment 6: implement "soft delete"
--- finish SQL 2 teams
+-- Assignment 7: install EF Tools
 
 -----------
 -- CREATION
@@ -283,6 +286,7 @@ CREATE TABLE Person (
 	PersonID int IDENTITY(1,1) NOT NULL PRIMARY KEY, 
 	FirstName nvarchar(255) NOT NULL, 
 	LastName nvarchar(255) NOT NULL, 
+	SortName nvarchar(255) NOT NULL, 
 	Phone nvarchar(255) NULL, 
 	Mobile nvarchar(255) NULL,
 	Email nvarchar(255) NULL,
@@ -946,8 +950,217 @@ create TABLE Schedule (
 )
 GO
 
--- Evaluations, Rubrics - Lari
--- 14/10/2023 no SQL?
+-- Lari
+
+CREATE TABLE Test (
+    TestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	OfficialCode INT NOT NULL,
+    CourseId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0
+)
+GO
+
+CREATE TABLE Score (
+    ScoreId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    TotalPercentage DECIMAL(5, 2),
+    Total DECIMAL(4, 2),
+	TestId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+	CONSTRAINT FK_Score_Test FOREIGN KEY (TestId) REFERENCES Test(TestId)
+)
+GO
+
+CREATE TABLE RubricColumn
+(
+    RubricColumnId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(MAX),
+    Description VARCHAR(MAX),
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0
+)
+GO
+
+CREATE TABLE RubricRowHeader
+(
+    RubricRowHeaderId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(MAX),
+    Description VARCHAR(MAX),
+	RubricRowHeaderParentId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_RubricRowHeader_RubricRowHeader FOREIGN KEY (RubricRowHeaderParentId) REFERENCES RubricRowHeader(RubricRowHeaderId)
+)
+GO
+
+CREATE TABLE RubricRow
+(
+    RubricRowId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(MAX),
+    Description VARCHAR(MAX),
+	MaxScore INT NOT NULL DEFAULT 20,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0
+)
+GO
+
+CREATE TABLE Rubric (
+    RubricId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(MAX),
+    Description VARCHAR(MAX),
+	MaxScore INT NOT NULL DEFAULT 20,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0
+)
+GO
+
+CREATE TABLE Rubric_RubricRow
+(
+    RubricRubricRowId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    RubricId INT NOT NULL,
+    RubricRowId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_Rubric_RubricRow_Rubric FOREIGN KEY (RubricId) REFERENCES Rubric(RubricId),
+    CONSTRAINT FK_Rubric_RubricRow_RubricRow FOREIGN KEY (RubricRowId) REFERENCES RubricRow(RubricRowId)
+)
+GO
+
+CREATE TABLE Rubric_RubricRowHeader
+(
+    RubricRubricRowHeaderId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    RubricId INT NOT NULL,
+    RubricRowHeaderId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_Rubric_RubricRowHeader_Rubric FOREIGN KEY (RubricId) REFERENCES Rubric(RubricId),
+    CONSTRAINT FK_Rubric_RubricRowHeader_RubricRowHeader FOREIGN KEY (RubricRowHeaderId) REFERENCES RubricRowHeader(RubricRowHeaderId)
+)
+GO
+
+CREATE TABLE Rubric_RubricColumn
+(
+    RubricRubricColumnId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    RubricId INT NOT NULL,
+    RubricColumnId INT NOT NULL,
+	RubricHeaderId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_Rubric_RubricColumn_Rubric FOREIGN KEY (RubricId) REFERENCES Rubric(RubricId),
+    CONSTRAINT FK_Rubric_RubricColumn_RubricColumn FOREIGN KEY (RubricColumnId) REFERENCES RubricColumn(RubricColumnId),
+	CONSTRAINT FK_Rubric_RubricColumn_RubricRowHeader FOREIGN KEY (RubricHeaderId) REFERENCES RubricRowHeader(RubricRowHeaderId)
+)
+GO
+
+CREATE TABLE RubricInstance (
+    RubricInstanceId INT IDENTITY(1,1) PRIMARY KEY,
+    AuthorPersonId INT NOT NULL,
+	RubricId INT NOT NULL,
+	ScorePersonId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+	CONSTRAINT FK_RubricInstance_Rubric FOREIGN KEY (RubricId) REFERENCES Rubric(RubricId),
+    CONSTRAINT FK_RubricInstance_AuthorPersonId FOREIGN KEY (AuthorPersonId) REFERENCES Person(PersonId),
+    CONSTRAINT FK_RubricInstance_ScorePersonId FOREIGN KEY (ScorePersonId) REFERENCES Person(PersonId)
+)
+GO
+
+CREATE TABLE RubricInstanceScore (
+    RubricInstanceScoreId INT IDENTITY(1,1) PRIMARY KEY,
+	RubricInstanceId INT NOT NULL,
+	RubricRubricRowId INT NOT NULL,
+	RubricRubricColumnId INT NOT NULL,
+	Score DECIMAL(8,2) NOT NULL,
+	
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_RubricInstanceScore_RubricInstance FOREIGN KEY (RubricInstanceId) REFERENCES RubricInstance(RubricInstanceId),
+    CONSTRAINT FK_RubricInstanceScore_RubricRow FOREIGN KEY (RubricRubricRowId) REFERENCES Rubric_RubricRow(RubricRubricRowId),
+    CONSTRAINT FK_RubricInstanceScore_RubricColumn FOREIGN KEY (RubricRubicColumnId) REFERENCES Rubric_RubricColumn(RubricColumnId)
+)
+GO
+
+CREATE TABLE PresenceState (
+    PresenceStateId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(255) NOT NULL,
+    Description NVARCHAR(255) NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0
+)
+GO
+
+CREATE TABLE Presence (
+    PresenceId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    OfficialCode INT NOT NULL,
+	QRCode NVARCHAR(512) NOT NULL,
+    PresenceStateId INT NOT NULL,
+	PersonId INT NOT NULL,
+
+	AUTO_TIME_CREATION DateTime2(7) NOT NULL DEFAULT GETDATE(),
+	AUTO_TIME_UPDATE DateTime2(7) NOT NULL DEFAULT GETDATE(),	
+	AUTO_UPDATE_COUNT int NOT NULL DEFAULT 0,
+
+	IsDeleted BIT NOT NULL DEFAULT 0,
+
+	CONSTRAINT FK_Presence_Person FOREIGN KEY (PersonId) REFERENCES Person(PersonId),
+	CONSTRAINT FK_Presence_PresenceState FOREIGN KEY (PresenceStateId) REFERENCES PresenceState(PresenceStateId)
+)
+GO
 
 -- Academic calendar: Jeroen
 
