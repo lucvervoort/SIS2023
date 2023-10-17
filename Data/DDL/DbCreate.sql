@@ -950,7 +950,9 @@ create TABLE Schedule (
 )
 GO
 
--- Lari
+-------
+-- Lari - Tests, Rubrics
+-------
 
 CREATE TABLE Test (
     TestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -1162,6 +1164,8 @@ CREATE TABLE Presence (
 )
 GO
 
+----------------------------
 -- Academic calendar: Jeroen
+----------------------------
 
 
