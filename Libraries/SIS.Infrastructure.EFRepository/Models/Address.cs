@@ -25,6 +25,8 @@ public partial class Address
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
 
     public virtual Country Country { get; set; } = null!;

@@ -21,6 +21,8 @@ public partial class Info
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Concept Concept { get; set; } = null!;
 
     public virtual InfoType InfoType { get; set; } = null!;

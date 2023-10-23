@@ -1,5 +1,6 @@
 ﻿namespace SIS.Domain
 {
+
     public class Teacher
     {
         public string FirstName { get; set; } = string.Empty;

@@ -17,5 +17,7 @@ public partial class Concept
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Info> Infos { get; set; } = new List<Info>();
 }

@@ -17,6 +17,8 @@ public partial class Location
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Building> Buildings { get; set; } = new List<Building>();
 
     public virtual Campus Campus { get; set; } = null!;

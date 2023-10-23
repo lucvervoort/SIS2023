@@ -15,5 +15,7 @@ public partial class TopicCategory
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Topic> Topics { get; set; } = new List<Topic>();
 }

@@ -21,9 +21,11 @@ public partial class TeacherAssignmentPercentageInterest
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual AcademicYear AcademicYear { get; set; } = null!;
 
-    public virtual Teacher Teacher { get; set; } = null!;
-
     public virtual Period Period { get; set; } = null!;
+
+    public virtual Teacher Teacher { get; set; } = null!;
 }

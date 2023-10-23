@@ -15,5 +15,7 @@ public partial class Education
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Internship> Internships { get; set; } = new List<Internship>();
 }

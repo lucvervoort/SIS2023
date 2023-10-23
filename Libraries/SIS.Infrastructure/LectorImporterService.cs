@@ -10,9 +10,9 @@ namespace SIS.Infrastructure
     {
         private readonly ILogger<TeacherImporterService> _logger;
         private readonly IConfiguration _configuration;
-        private readonly ISISRepository _repository;
+        private readonly ISISTeacherRepository _repository;
 
-        public TeacherImporterService(ILogger<TeacherImporterService> logger, IConfiguration configuration, ISISRepository repository)
+        public TeacherImporterService(ILogger<TeacherImporterService> logger, IConfiguration configuration, ISISTeacherRepository repository)
         {
             _logger = logger;
             _configuration = configuration;
@@ -22,12 +22,21 @@ namespace SIS.Infrastructure
         public void Import()
         {
             string json = File.ReadAllText(Path.Combine(_configuration["JsonDataPath"], "Teachers.json"));
-            var lectoren = JsonConvert.DeserializeObject<List<Teacher>>(json);
-            foreach (var l in lectoren)
+            var teachers = JsonConvert.DeserializeObject<List<Teacher>>(json);
+            if (teachers != null)
             {
-                _repository.Add(l);
+                foreach (var l in teachers)
+                {
+                    // TO DO: implement update
+                    //// TO DO: implement Upsert for this pattern...
+                    //if(_repository.Exists(l))
+                    //    _repository.Update(l);
+                    //else
+                        _repository.Insert(l);
+                }
             }
-            _repository.SaveChanges();
+            // RAW SQL Example:
+            var teacherNames = _repository.GetNames();
         }
     }
 }

@@ -23,6 +23,8 @@ public partial class Contact
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Company Company { get; set; } = null!;
 
     public virtual Person Person { get; set; } = null!;

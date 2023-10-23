@@ -19,6 +19,8 @@ public partial class StudentIoem
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual AcademicYear AcademicYear { get; set; } = null!;
 
     public virtual Ioem Ioem { get; set; } = null!;

@@ -15,5 +15,7 @@ public partial class CourseType
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
 }

@@ -17,6 +17,8 @@ public partial class Building
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Location Location { get; set; } = null!;
 
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();

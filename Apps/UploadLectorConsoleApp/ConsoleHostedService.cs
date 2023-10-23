@@ -11,7 +11,7 @@ internal partial class Program
         private readonly IConfiguration _configuration;
         private readonly IHostApplicationLifetime _appLifetime;
         private readonly IImporter _lectorImporterService;
-        private readonly ISISRepository _repository;
+        private readonly ISISTeacherRepository _repository;
         private int? _exitCode;
 
         public ConsoleHostedService(

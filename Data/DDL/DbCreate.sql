@@ -10,6 +10,15 @@
 -- Assignment 6: implement "soft delete"
 -- Assignment 7: install EF Tools
 
+
+/* 
+docker pull datalust/seq
+docker run --name seq -d --restart unless-stopped -e ACCEPT_EULA=Y -p 5341:80 datalust/seq:latest
+
+1. Triggers
+2. Logging en doc logging opkuisen
+*/
+
 -----------
 -- CREATION
 -----------

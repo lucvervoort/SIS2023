@@ -1,4 +1,10 @@
 
+using Serilog;
+using SIS.API;
+using SIS.Domain.Interfaces;
+using SIS.Infrastructure;
+using SIS.Infrastructure.EFRepository.Context;
+
 namespace SISApi
 {
     public class Program
@@ -9,7 +15,24 @@ namespace SISApi
 
             // Add services to the container.
 
-            // TODO LVET: IRepository and Teacher call 
+            builder.Services.AddLogging(loggingBuilder =>
+            {
+                var configuration = new ConfigurationBuilder()
+                                                    .AddJsonFile("appsettings.json")
+                                                    .Build();
+                var logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(configuration)
+                    .CreateLogger();
+                loggingBuilder.AddSerilog(logger, dispose: true);
+            });
+
+            builder.Services.AddDbContext<SisDbContext>()
+                  .AddScoped<ISISTeacherTypeRepository, EFSISTeacherTypeRepository>() // here I could pick the ADO.NET alternative
+                  .AddScoped<ISISRegistrationStateRepository, EFSISRegistrationStateRepository>() // here I could pick the ADO.NET alternative
+                  .AddScoped<ISISPersonRepository, EFSISPersonRepository>() // here I could pick the ADO.NET alternative
+                  .AddScoped<ISISTeacherRepository, EFSISTeacherRepository>(); // here I could pick the ADO.NET alternative
+
+            builder.Services.AddAutoMapper(typeof(MappingConfig));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

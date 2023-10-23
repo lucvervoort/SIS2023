@@ -15,6 +15,8 @@ public partial class InternshipContact
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Contact Contact { get; set; } = null!;
 
     public virtual Internship Internship { get; set; } = null!;

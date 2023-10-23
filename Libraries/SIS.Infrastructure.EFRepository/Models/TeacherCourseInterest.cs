@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SIS.Infrastructure.EFRepository.Models;
 
-public partial class TeacherCoordinationRoleInterest
+public partial class TeacherCourseInterest
 {
-    public int TeacherCoordinationRoleInterestId { get; set; }
+    public int TeacherCourseInterestId { get; set; }
 
     public int AcademicYearId { get; set; }
 
@@ -13,7 +13,7 @@ public partial class TeacherCoordinationRoleInterest
 
     public int TeacherPreferenceId { get; set; }
 
-    public int CoordinationRoleId { get; set; }
+    public int CourseId { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 
@@ -21,9 +21,11 @@ public partial class TeacherCoordinationRoleInterest
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual AcademicYear AcademicYear { get; set; } = null!;
 
-    public virtual CoordinationRole CoordinationRole { get; set; } = null!;
+    public virtual Course Course { get; set; } = null!;
 
     public virtual Teacher Teacher { get; set; } = null!;
 

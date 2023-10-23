@@ -15,5 +15,7 @@ public partial class RoomKind
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 }

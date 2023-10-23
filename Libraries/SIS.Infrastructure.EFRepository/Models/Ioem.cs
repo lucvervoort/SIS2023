@@ -23,5 +23,7 @@ public partial class Ioem
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<StudentIoem> StudentIoems { get; set; } = new List<StudentIoem>();
 }

@@ -23,6 +23,8 @@ public partial class Room
 
     public int AutoUpdateCount { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual Building Building { get; set; } = null!;
 
     public virtual RoomKind? RoomKind { get; set; }
