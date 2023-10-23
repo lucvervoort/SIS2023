@@ -9,6 +9,8 @@
 -- Assignment 5: check if data can be uploaded - are all required fields and tables available?
 -- Assignment 6: implement "soft delete"
 -- Assignment 7: install EF Tools
+-- Assignment 8: implement "logging" (Seq/SeriLog)
+-- Assignment 9: test raw sql
 
 
 /* 
@@ -959,7 +961,9 @@ create TABLE Schedule (
 )
 GO
 
--- Lari
+-------
+-- Lari - Tests, Rubrics
+-------
 
 CREATE TABLE Test (
     TestId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -1136,7 +1140,7 @@ CREATE TABLE RubricInstanceScore (
 
     CONSTRAINT FK_RubricInstanceScore_RubricInstance FOREIGN KEY (RubricInstanceId) REFERENCES RubricInstance(RubricInstanceId),
     CONSTRAINT FK_RubricInstanceScore_RubricRow FOREIGN KEY (RubricRubricRowId) REFERENCES Rubric_RubricRow(RubricRubricRowId),
-    CONSTRAINT FK_RubricInstanceScore_RubricColumn FOREIGN KEY (RubricRubicColumnId) REFERENCES Rubric_RubricColumn(RubricColumnId)
+    CONSTRAINT FK_RubricInstanceScore_RubricColumn FOREIGN KEY (RubricRubricColumnId) REFERENCES Rubric_RubricColumn(RubricRubricColumnId)
 )
 GO
 
@@ -1171,6 +1175,8 @@ CREATE TABLE Presence (
 )
 GO
 
+----------------------------
 -- Academic calendar: Jeroen
+----------------------------
 
 

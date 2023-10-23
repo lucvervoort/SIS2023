@@ -48,6 +48,7 @@ public partial class SisDbContext : GenSisDbContext
             {
                 var isDeletedProperty = Expression.Call(propertyMethodInfo, parameter, Expression.Constant("IsDeleted"));
 
+
                 BinaryExpression compareExpression = Expression.MakeBinary(ExpressionType.Equal, isDeletedProperty, Expression.Constant(false));
 
                 var lambda = Expression.Lambda(compareExpression, parameter);

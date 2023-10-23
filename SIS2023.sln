@@ -38,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDL", "DDL", "{C43C3726-DF4
 		Data\DDL\DbContents.sql = Data\DDL\DbContents.sql
 		Data\DDL\DbCreate.sql = Data\DDL\DbCreate.sql
 		Data\DDL\DbDrop.sql = Data\DDL\DbDrop.sql
-		Data\DDL\DbTriggers.sql = Data\DDL\DbTriggers.sql
+		Data\DDL\DbTrigger_AcademicYear.sql = Data\DDL\DbTrigger_AcademicYear.sql
 	EndProjectSection
 EndProject
 Global
