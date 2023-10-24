@@ -38,8 +38,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDL", "DDL", "{C43C3726-DF4
 		Data\DDL\DbContents.sql = Data\DDL\DbContents.sql
 		Data\DDL\DbCreate.sql = Data\DDL\DbCreate.sql
 		Data\DDL\DbDrop.sql = Data\DDL\DbDrop.sql
-		Data\DDL\DbTrigger_AcademicYear.sql = Data\DDL\DbTrigger_AcademicYear.sql
+		Data\DDL\DbTrigger..sql = Data\DDL\DbTrigger..sql
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SISAPIConsoleApp", "Apps\SisAPIConsoleApp\SISAPIConsoleApp.csproj", "{B166CDE0-5E20-4F58-A240-6A1004D2525F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{78506B57-E16E-426E-8C1F-8E3521D8595E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78506B57-E16E-426E-8C1F-8E3521D8595E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78506B57-E16E-426E-8C1F-8E3521D8595E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B166CDE0-5E20-4F58-A240-6A1004D2525F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B166CDE0-5E20-4F58-A240-6A1004D2525F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B166CDE0-5E20-4F58-A240-6A1004D2525F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B166CDE0-5E20-4F58-A240-6A1004D2525F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +106,7 @@ Global
 		{C80B62E8-3C2D-4F76-BA4B-FB0BFCFE5FCE} = {553D56EC-850F-4950-87D8-EE087E30ACF6}
 		{78506B57-E16E-426E-8C1F-8E3521D8595E} = {8D84B963-FBB6-4990-8F2B-A2582F8F6D4B}
 		{C43C3726-DF43-4B77-8CE4-C21AE314380D} = {04F77243-348F-4FBF-89EC-44E05C0145C0}
+		{B166CDE0-5E20-4F58-A240-6A1004D2525F} = {20E9D352-6D87-46A6-B176-0636BAEEE4A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42EA0099-0828-4F80-826E-1166F889E264}
