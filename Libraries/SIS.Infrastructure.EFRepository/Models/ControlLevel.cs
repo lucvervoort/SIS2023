@@ -13,5 +13,11 @@ public partial class ControlLevel
 
     public string Description { get; set; } = null!;
 
+    public DateTime AutoTimeCreation { get; set; }
+
+    public DateTime AutoTimeUpdate { get; set; }
+
+    public int AutoUpdateCount { get; set; }
+
     public virtual ICollection<LearningTarget> LearningTargets { get; set; } = new List<LearningTarget>();
 }

@@ -94,6 +94,8 @@ public partial class GenSisDbContext : DbContext
 
     public virtual DbSet<RubricInstance> RubricInstances { get; set; }
 
+    public virtual DbSet<RubricInstanceScore> RubricInstanceScores { get; set; }
+
     public virtual DbSet<RubricRow> RubricRows { get; set; }
 
     public virtual DbSet<RubricRowHeader> RubricRowHeaders { get; set; }
@@ -154,9 +156,9 @@ public partial class GenSisDbContext : DbContext
     {
         modelBuilder.Entity<AcademicYear>(entity =>
         {
-            entity.HasKey(e => e.AcademicYearId).HasName("PK__Academic__C54C7A0157188A87");
+            entity.HasKey(e => e.AcademicYearId).HasName("PK__Academic__C54C7A019C10F34B");
 
-            entity.ToTable("AcademicYear");
+            entity.ToTable("AcademicYear", tb => tb.HasTrigger("TG_AcademicYear_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -169,7 +171,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Address>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Address__091C2AFB5E9364C9");
+            entity.HasKey(e => e.AddressId).HasName("PK__Address__091C2AFB512B3EE2");
 
             entity.ToTable("Address");
 
@@ -191,9 +193,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Building>(entity =>
         {
-            entity.HasKey(e => e.BuildingId).HasName("PK__Building__5463CDC4A692480B");
+            entity.HasKey(e => e.BuildingId).HasName("PK__Building__5463CDC48336EE58");
 
-            entity.ToTable("Building");
+            entity.ToTable("Building", tb => tb.HasTrigger("TG_Building_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -212,9 +214,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Campus>(entity =>
         {
-            entity.HasKey(e => e.CampusId).HasName("PK__Campus__FD598DD600295A9B");
+            entity.HasKey(e => e.CampusId).HasName("PK__Campus__FD598DD69E2DB976");
 
-            entity.ToTable("Campus");
+            entity.ToTable("Campus", tb => tb.HasTrigger("TG_Campus_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -228,15 +230,15 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Company>(entity =>
         {
-            entity.HasKey(e => e.CompanyId).HasName("PK__Company__2D971CAC4F1AD937");
+            entity.HasKey(e => e.CompanyId).HasName("PK__Company__2D971CAC6E2B4019");
 
-            entity.ToTable("Company");
+            entity.ToTable("Company", tb => tb.HasTrigger("TG_Company_Update"));
 
-            entity.HasIndex(e => e.Phone, "UQ__Company__5C7E359E1AA940BB").IsUnique();
+            entity.HasIndex(e => e.Phone, "UQ__Company__5C7E359E29F87FCB").IsUnique();
 
-            entity.HasIndex(e => e.Mobile, "UQ__Company__6FAE078292D21510").IsUnique();
+            entity.HasIndex(e => e.Mobile, "UQ__Company__6FAE07827EF66D1D").IsUnique();
 
-            entity.HasIndex(e => e.Email, "UQ__Company__A9D105342BDB4DCA").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Company__A9D10534A79722E6").IsUnique();
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -268,9 +270,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Concept>(entity =>
         {
-            entity.HasKey(e => e.ConceptId).HasName("PK__Concept__515AA756EF74298B");
+            entity.HasKey(e => e.ConceptId).HasName("PK__Concept__515AA7560A34828B");
 
-            entity.ToTable("Concept");
+            entity.ToTable("Concept", tb => tb.HasTrigger("TG_Concept_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -283,9 +285,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Contact>(entity =>
         {
-            entity.HasKey(e => e.ContactId).HasName("PK__Contact__5C66259BDF3D887B");
+            entity.HasKey(e => e.ContactId).HasName("PK__Contact__5C66259B410750EC");
 
-            entity.ToTable("Contact");
+            entity.ToTable("Contact", tb => tb.HasTrigger("TG_Contact_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -310,23 +312,30 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<ControlLevel>(entity =>
         {
-            entity.HasKey(e => e.ControlLevelId).HasName("PK__ControlL__5CDF013AA7D4C75B");
+            entity.HasKey(e => e.ControlLevelId).HasName("PK__ControlL__5CDF013A446DCF64");
 
-            entity.ToTable("ControlLevel");
+            entity.ToTable("ControlLevel", tb => tb.HasTrigger("TG_ControlLevel_Update"));
 
-            entity.HasIndex(e => e.Name, "UQ__ControlL__737584F6BEBFF6AA").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__ControlL__737584F69EE9B8D6").IsUnique();
 
-            entity.HasIndex(e => e.Abbreviation, "UQ__ControlL__9C41170EF590C82B").IsUnique();
+            entity.HasIndex(e => e.Abbreviation, "UQ__ControlL__9C41170E5BE551A0").IsUnique();
 
             entity.Property(e => e.Abbreviation).HasMaxLength(1);
+            entity.Property(e => e.AutoTimeCreation)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("AUTO_TIME_CREATION");
+            entity.Property(e => e.AutoTimeUpdate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("AUTO_TIME_UPDATE");
+            entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
             entity.Property(e => e.Name).HasMaxLength(125);
         });
 
         modelBuilder.Entity<CoordinationRole>(entity =>
         {
-            entity.HasKey(e => e.CoordinationRoleId).HasName("PK__Coordina__19EB71C1F0DEC996");
+            entity.HasKey(e => e.CoordinationRoleId).HasName("PK__Coordina__19EB71C1D6B58D81");
 
-            entity.ToTable("CoordinationRole");
+            entity.ToTable("CoordinationRole", tb => tb.HasTrigger("TG_CoordinationRole_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -340,7 +349,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.CountryId).HasName("PK__Country__10D1609FB6D3508B");
+            entity.HasKey(e => e.CountryId).HasName("PK__Country__10D1609FFBCB0EB7");
 
             entity.ToTable("Country");
 
@@ -356,9 +365,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.CourseId).HasName("PK__Course__C92D71A71AA7A70C");
+            entity.HasKey(e => e.CourseId).HasName("PK__Course__C92D71A77F7DA71D");
 
-            entity.ToTable("Course");
+            entity.ToTable("Course", tb => tb.HasTrigger("TG_Course_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -378,9 +387,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<CourseGroup>(entity =>
         {
-            entity.HasKey(e => e.CourseGroupId).HasName("PK__CourseGr__E9E863F07F6ADFD9");
+            entity.HasKey(e => e.CourseGroupId).HasName("PK__CourseGr__E9E863F09384FA0E");
 
-            entity.ToTable("CourseGroup");
+            entity.ToTable("CourseGroup", tb => tb.HasTrigger("TG_CourseGroup_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -393,9 +402,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<CourseGroupStudent>(entity =>
         {
-            entity.HasKey(e => e.CourseGroupStudentId).HasName("PK__CourseGr__ACD48B4BB5A6FFA2");
+            entity.HasKey(e => e.CourseGroupStudentId).HasName("PK__CourseGr__ACD48B4B8FCE6478");
 
-            entity.ToTable("CourseGroup_Student");
+            entity.ToTable("CourseGroup_Student", tb => tb.HasTrigger("TG_CourseGroup_Student_Update"));
 
             entity.Property(e => e.CourseGroupStudentId).HasColumnName("CourseGroup_StudentId");
             entity.Property(e => e.AutoTimeCreation)
@@ -419,9 +428,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<CourseGroupStudentGroup>(entity =>
         {
-            entity.HasKey(e => e.CourseGroupStudentGroupId).HasName("PK__CourseGr__C9DD5CEEB856583D");
+            entity.HasKey(e => e.CourseGroupStudentGroupId).HasName("PK__CourseGr__C9DD5CEEBC97EA23");
 
-            entity.ToTable("CourseGroup_StudentGroup");
+            entity.ToTable("CourseGroup_StudentGroup", tb => tb.HasTrigger("TG_CourseGroup_StudentGroup_Update"));
 
             entity.Property(e => e.CourseGroupStudentGroupId).HasColumnName("CourseGroup_StudentGroupId");
             entity.Property(e => e.AutoTimeCreation)
@@ -445,9 +454,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<CourseGroupTeacher>(entity =>
         {
-            entity.HasKey(e => e.CourseGroupTeacherId).HasName("PK__CourseGr__7894AB1A12CBCF65");
+            entity.HasKey(e => e.CourseGroupTeacherId).HasName("PK__CourseGr__7894AB1A629B671F");
 
-            entity.ToTable("CourseGroup_Teacher");
+            entity.ToTable("CourseGroup_Teacher", tb => tb.HasTrigger("TG_CourseGroup_Teacher_Update"));
 
             entity.Property(e => e.CourseGroupTeacherId).HasColumnName("CourseGroup_TeacherId");
             entity.Property(e => e.AutoTimeCreation)
@@ -471,9 +480,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<CourseGroupTeacherGroup>(entity =>
         {
-            entity.HasKey(e => e.CourseGroupTeacherGroupId).HasName("PK__CourseGr__CBD360048A449185");
+            entity.HasKey(e => e.CourseGroupTeacherGroupId).HasName("PK__CourseGr__CBD36004EBC698F1");
 
-            entity.ToTable("CourseGroup_TeacherGroup");
+            entity.ToTable("CourseGroup_TeacherGroup", tb => tb.HasTrigger("TG_CourseGroup_TeacherGroup_Update"));
 
             entity.Property(e => e.CourseGroupTeacherGroupId).HasColumnName("CourseGroup_TeacherGroupId");
             entity.Property(e => e.AutoTimeCreation)
@@ -497,9 +506,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<CourseTrajectory>(entity =>
         {
-            entity.HasKey(e => e.CourseTrajectoryId).HasName("PK__CourseTr__319C14EFB84617BD");
+            entity.HasKey(e => e.CourseTrajectoryId).HasName("PK__CourseTr__319C14EFB093FEEA");
 
-            entity.ToTable("CourseTrajectory");
+            entity.ToTable("CourseTrajectory", tb => tb.HasTrigger("TG_CourseTrajectory_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -522,9 +531,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<CourseType>(entity =>
         {
-            entity.HasKey(e => e.CourseTypeId).HasName("PK__CourseTy__8173697216DBD006");
+            entity.HasKey(e => e.CourseTypeId).HasName("PK__CourseTy__8173697282BBD2AE");
 
-            entity.ToTable("CourseType");
+            entity.ToTable("CourseType", tb => tb.HasTrigger("TG_CourseType_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -538,9 +547,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Education>(entity =>
         {
-            entity.HasKey(e => e.EducationId).HasName("PK__Educatio__4BBE380515176863");
+            entity.HasKey(e => e.EducationId).HasName("PK__Educatio__4BBE38051B82A705");
 
-            entity.ToTable("Education");
+            entity.ToTable("Education", tb => tb.HasTrigger("TG_Education_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -554,9 +563,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Info>(entity =>
         {
-            entity.HasKey(e => e.InfoId).HasName("PK__Info__4DEC9D7ACEA15BBA");
+            entity.HasKey(e => e.InfoId).HasName("PK__Info__4DEC9D7A5068DD3B");
 
-            entity.ToTable("Info");
+            entity.ToTable("Info", tb => tb.HasTrigger("TG_Info_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -579,9 +588,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<InfoType>(entity =>
         {
-            entity.HasKey(e => e.InfoTypeId).HasName("PK__InfoType__E94AB52458F05E24");
+            entity.HasKey(e => e.InfoTypeId).HasName("PK__InfoType__E94AB52493C173A0");
 
-            entity.ToTable("InfoType");
+            entity.ToTable("InfoType", tb => tb.HasTrigger("TG_InfoType_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -594,9 +603,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Internship>(entity =>
         {
-            entity.HasKey(e => e.InternshipId).HasName("PK__Internsh__01ADE5BBD647DA87");
+            entity.HasKey(e => e.InternshipId).HasName("PK__Internsh__01ADE5BB57068C6E");
 
-            entity.ToTable("Internship");
+            entity.ToTable("Internship", tb => tb.HasTrigger("TG_Internship_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -621,7 +630,7 @@ public partial class GenSisDbContext : DbContext
         {
             entity
                 .HasNoKey()
-                .ToTable("Internship_Contact");
+                .ToTable("Internship_Contact", tb => tb.HasTrigger("TG_Internship_Contact_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -644,9 +653,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Ioem>(entity =>
         {
-            entity.HasKey(e => e.Ioemid).HasName("PK__IOEM__AA343AAE988CFA06");
+            entity.HasKey(e => e.Ioemid).HasName("PK__IOEM__AA343AAE0204E5CC");
 
-            entity.ToTable("IOEM");
+            entity.ToTable("IOEM", tb => tb.HasTrigger("TG_IOEM_Update"));
 
             entity.Property(e => e.Ioemid).HasColumnName("IOEMId");
             entity.Property(e => e.AutoTimeCreation)
@@ -663,11 +672,11 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<LearningOutcome>(entity =>
         {
-            entity.HasKey(e => e.LearningOutcomeId).HasName("PK__Learning__05E3E259BD14B854");
+            entity.HasKey(e => e.LearningOutcomeId).HasName("PK__Learning__05E3E259FFC0BF04");
 
-            entity.ToTable("LearningOutcome");
+            entity.ToTable("LearningOutcome", tb => tb.HasTrigger("TG_LearningOutcome_Update"));
 
-            entity.HasIndex(e => e.Name, "UQ__Learning__737584F6ABEA74EE").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__Learning__737584F673500CD9").IsUnique();
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -686,11 +695,11 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<LearningOutcomeType>(entity =>
         {
-            entity.HasKey(e => e.LearningOutcomeTypeId).HasName("PK__Learning__45AB9042C5597178");
+            entity.HasKey(e => e.LearningOutcomeTypeId).HasName("PK__Learning__45AB9042BA7AFE62");
 
-            entity.ToTable("LearningOutcomeType");
+            entity.ToTable("LearningOutcomeType", tb => tb.HasTrigger("TG_LearningOutcomeType_Update"));
 
-            entity.HasIndex(e => e.Name, "UQ__Learning__737584F68A7EBE3B").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__Learning__737584F6610E35C1").IsUnique();
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -704,11 +713,11 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<LearningTarget>(entity =>
         {
-            entity.HasKey(e => e.LearningTargetId).HasName("PK__Learning__0DD376A9E129E6A4");
+            entity.HasKey(e => e.LearningTargetId).HasName("PK__Learning__0DD376A96FAC0858");
 
-            entity.ToTable("LearningTarget");
+            entity.ToTable("LearningTarget", tb => tb.HasTrigger("TG_LearningTarget_Update"));
 
-            entity.HasIndex(e => e.Name, "UQ__Learning__737584F6E9E99A15").IsUnique();
+            entity.HasIndex(e => e.Name, "UQ__Learning__737584F6B25DB1C8").IsUnique();
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -732,9 +741,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Location>(entity =>
         {
-            entity.HasKey(e => e.LocationId).HasName("PK__Location__E7FEA49798B896F1");
+            entity.HasKey(e => e.LocationId).HasName("PK__Location__E7FEA497122CD415");
 
-            entity.ToTable("Location");
+            entity.ToTable("Location", tb => tb.HasTrigger("TG_Location_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -753,9 +762,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Period>(entity =>
         {
-            entity.HasKey(e => e.PeriodId).HasName("PK__Period__E521BB16C43C2337");
+            entity.HasKey(e => e.PeriodId).HasName("PK__Period__E521BB164887BFDD");
 
-            entity.ToTable("Period");
+            entity.ToTable("Period", tb => tb.HasTrigger("TG_Period_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -768,9 +777,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.PersonId).HasName("PK__Person__AA2FFB857101B608");
+            entity.HasKey(e => e.PersonId).HasName("PK__Person__AA2FFB8583317684");
 
-            entity.ToTable("Person");
+            entity.ToTable("Person", tb => tb.HasTrigger("TG_Person_Update"));
 
             entity.Property(e => e.PersonId).HasColumnName("PersonID");
             entity.Property(e => e.AutoTimeCreation)
@@ -794,7 +803,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Presence>(entity =>
         {
-            entity.HasKey(e => e.PresenceId).HasName("PK__Presence__4980E863D8174AFE");
+            entity.HasKey(e => e.PresenceId).HasName("PK__Presence__4980E8638086DEB4");
 
             entity.ToTable("Presence");
 
@@ -822,7 +831,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<PresenceState>(entity =>
         {
-            entity.HasKey(e => e.PresenceStateId).HasName("PK__Presence__41336BB830135F17");
+            entity.HasKey(e => e.PresenceStateId).HasName("PK__Presence__41336BB87078CA9F");
 
             entity.ToTable("PresenceState");
 
@@ -839,9 +848,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RegistrationState>(entity =>
         {
-            entity.HasKey(e => e.RegistrationStateId).HasName("PK__Registra__7504BB5AB6E67273");
+            entity.HasKey(e => e.RegistrationStateId).HasName("PK__Registra__7504BB5A6676403D");
 
-            entity.ToTable("RegistrationState");
+            entity.ToTable("RegistrationState", tb => tb.HasTrigger("TG_RegistrationState_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -854,9 +863,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Room>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__Room__3286393918185080");
+            entity.HasKey(e => e.RoomId).HasName("PK__Room__32863939B57F0847");
 
-            entity.ToTable("Room");
+            entity.ToTable("Room", tb => tb.HasTrigger("TG_Room_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -883,9 +892,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RoomKind>(entity =>
         {
-            entity.HasKey(e => e.RoomKindId).HasName("PK__RoomKind__6B8E0CD09D5DD858");
+            entity.HasKey(e => e.RoomKindId).HasName("PK__RoomKind__6B8E0CD0B540F845");
 
-            entity.ToTable("RoomKind");
+            entity.ToTable("RoomKind", tb => tb.HasTrigger("TG_RoomKind_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -899,9 +908,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RoomType>(entity =>
         {
-            entity.HasKey(e => e.RoomTypeId).HasName("PK__RoomType__BCC896312B8F65B4");
+            entity.HasKey(e => e.RoomTypeId).HasName("PK__RoomType__BCC8963125FD4422");
 
-            entity.ToTable("RoomType");
+            entity.ToTable("RoomType", tb => tb.HasTrigger("TG_RoomType_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -915,7 +924,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Rubric>(entity =>
         {
-            entity.HasKey(e => e.RubricId).HasName("PK__Rubric__8F6D0781651E2575");
+            entity.HasKey(e => e.RubricId).HasName("PK__Rubric__8F6D07816ABB74CA");
 
             entity.ToTable("Rubric");
 
@@ -932,7 +941,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RubricColumn>(entity =>
         {
-            entity.HasKey(e => e.RubricColumnId).HasName("PK__RubricCo__2F7329F0C538772F");
+            entity.HasKey(e => e.RubricColumnId).HasName("PK__RubricCo__2F7329F08EA042B0");
 
             entity.ToTable("RubricColumn");
 
@@ -948,7 +957,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RubricInstance>(entity =>
         {
-            entity.HasKey(e => e.RubricInstanceId).HasName("PK__RubricIn__261E36A3953DE3ED");
+            entity.HasKey(e => e.RubricInstanceId).HasName("PK__RubricIn__261E36A38D0E68A7");
 
             entity.ToTable("RubricInstance");
 
@@ -976,9 +985,40 @@ public partial class GenSisDbContext : DbContext
                 .HasConstraintName("FK_RubricInstance_ScorePersonId");
         });
 
+        modelBuilder.Entity<RubricInstanceScore>(entity =>
+        {
+            entity.HasKey(e => e.RubricInstanceScoreId).HasName("PK__RubricIn__464068794EB8729D");
+
+            entity.ToTable("RubricInstanceScore");
+
+            entity.Property(e => e.AutoTimeCreation)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("AUTO_TIME_CREATION");
+            entity.Property(e => e.AutoTimeUpdate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("AUTO_TIME_UPDATE");
+            entity.Property(e => e.AutoUpdateCount).HasColumnName("AUTO_UPDATE_COUNT");
+            entity.Property(e => e.Score).HasColumnType("decimal(8, 2)");
+
+            entity.HasOne(d => d.RubricInstance).WithMany(p => p.RubricInstanceScores)
+                .HasForeignKey(d => d.RubricInstanceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RubricInstanceScore_RubricInstance");
+
+            entity.HasOne(d => d.RubricRubricColumn).WithMany(p => p.RubricInstanceScores)
+                .HasForeignKey(d => d.RubricRubricColumnId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RubricInstanceScore_RubricColumn");
+
+            entity.HasOne(d => d.RubricRubricRow).WithMany(p => p.RubricInstanceScores)
+                .HasForeignKey(d => d.RubricRubricRowId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RubricInstanceScore_RubricRow");
+        });
+
         modelBuilder.Entity<RubricRow>(entity =>
         {
-            entity.HasKey(e => e.RubricRowId).HasName("PK__RubricRo__A7062D356E407246");
+            entity.HasKey(e => e.RubricRowId).HasName("PK__RubricRo__A7062D35F79AFA5B");
 
             entity.ToTable("RubricRow");
 
@@ -995,7 +1035,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RubricRowHeader>(entity =>
         {
-            entity.HasKey(e => e.RubricRowHeaderId).HasName("PK__RubricRo__BDC4FFB924E6FE56");
+            entity.HasKey(e => e.RubricRowHeaderId).HasName("PK__RubricRo__BDC4FFB9D8184520");
 
             entity.ToTable("RubricRowHeader");
 
@@ -1016,7 +1056,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RubricRubricColumn>(entity =>
         {
-            entity.HasKey(e => e.RubricRubricColumnId).HasName("PK__Rubric_R__A1AE87209F9C7245");
+            entity.HasKey(e => e.RubricRubricColumnId).HasName("PK__Rubric_R__A1AE8720E4F321BB");
 
             entity.ToTable("Rubric_RubricColumn");
 
@@ -1046,7 +1086,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RubricRubricRow>(entity =>
         {
-            entity.HasKey(e => e.RubricRubricRowId).HasName("PK__Rubric_R__248037BF3F2A4247");
+            entity.HasKey(e => e.RubricRubricRowId).HasName("PK__Rubric_R__248037BF53905A01");
 
             entity.ToTable("Rubric_RubricRow");
 
@@ -1071,7 +1111,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<RubricRubricRowHeader>(entity =>
         {
-            entity.HasKey(e => e.RubricRubricRowHeaderId).HasName("PK__Rubric_R__92D939160AD9D686");
+            entity.HasKey(e => e.RubricRubricRowHeaderId).HasName("PK__Rubric_R__92D939169FE00608");
 
             entity.ToTable("Rubric_RubricRowHeader");
 
@@ -1096,9 +1136,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Schedule>(entity =>
         {
-            entity.HasKey(e => e.ScheduleId).HasName("PK__Schedule__9C8A5B491B6EBFF0");
+            entity.HasKey(e => e.ScheduleId).HasName("PK__Schedule__9C8A5B49AC878BF4");
 
-            entity.ToTable("Schedule");
+            entity.ToTable("Schedule", tb => tb.HasTrigger("TG_Schedule_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1136,9 +1176,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<SchedulingTimeslot>(entity =>
         {
-            entity.HasKey(e => e.SchedulingTimeslotId).HasName("PK__Scheduli__18163E447AC79AB1");
+            entity.HasKey(e => e.SchedulingTimeslotId).HasName("PK__Scheduli__18163E443B3F8B3F");
 
-            entity.ToTable("SchedulingTimeslot");
+            entity.ToTable("SchedulingTimeslot", tb => tb.HasTrigger("TG_SchedulingTimeslot_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1152,7 +1192,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Score>(entity =>
         {
-            entity.HasKey(e => e.ScoreId).HasName("PK__Score__7DD229D1556EF398");
+            entity.HasKey(e => e.ScoreId).HasName("PK__Score__7DD229D155B880F0");
 
             entity.ToTable("Score");
 
@@ -1174,9 +1214,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Student>(entity =>
         {
-            entity.HasKey(e => e.StudentId).HasName("PK__Student__32C52B997DB60FAC");
+            entity.HasKey(e => e.StudentId).HasName("PK__Student__32C52B99E05E3DA3");
 
-            entity.ToTable("Student");
+            entity.ToTable("Student", tb => tb.HasTrigger("TG_Student_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1201,9 +1241,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<StudentGroup>(entity =>
         {
-            entity.HasKey(e => e.StudentGroupId).HasName("PK__StudentG__DCEA17E4A66BB66C");
+            entity.HasKey(e => e.StudentGroupId).HasName("PK__StudentG__DCEA17E4C48FE582");
 
-            entity.ToTable("StudentGroup");
+            entity.ToTable("StudentGroup", tb => tb.HasTrigger("TG_StudentGroup_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1216,9 +1256,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<StudentIoem>(entity =>
         {
-            entity.HasKey(e => e.StudentIoemid).HasName("PK__StudentI__F33128C31D7DB7D0");
+            entity.HasKey(e => e.StudentIoemid).HasName("PK__StudentI__F33128C381A7B598");
 
-            entity.ToTable("StudentIOEM");
+            entity.ToTable("StudentIOEM", tb => tb.HasTrigger("TG_StudentIOEM_Update"));
 
             entity.Property(e => e.StudentIoemid).HasColumnName("StudentIOEMId");
             entity.Property(e => e.AutoTimeCreation)
@@ -1248,9 +1288,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<StudentStudentGroup>(entity =>
         {
-            entity.HasKey(e => e.StudentStudentGroupId).HasName("PK__Student___F2A75069E1F8EC14");
+            entity.HasKey(e => e.StudentStudentGroupId).HasName("PK__Student___F2A750697E7A524C");
 
-            entity.ToTable("Student_StudentGroup");
+            entity.ToTable("Student_StudentGroup", tb => tb.HasTrigger("TG_Student_StudentGroup_Update"));
 
             entity.Property(e => e.StudentStudentGroupId).HasColumnName("Student_StudentGroupId");
             entity.Property(e => e.AutoTimeCreation)
@@ -1274,9 +1314,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Teacher>(entity =>
         {
-            entity.HasKey(e => e.TeacherId).HasName("PK__Teacher__EDF2596495A54140");
+            entity.HasKey(e => e.TeacherId).HasName("PK__Teacher__EDF25964A6F9CB91");
 
-            entity.ToTable("Teacher");
+            entity.ToTable("Teacher", tb => tb.HasTrigger("TG_Teacher_Update"));
 
             entity.Property(e => e.Abbreviation)
                 .HasMaxLength(10)
@@ -1311,9 +1351,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherAssignmentPercentageInterest>(entity =>
         {
-            entity.HasKey(e => e.TeacherAssignmentPercentageInterestId).HasName("PK__TeacherA__6E1EBD68E498A4AC");
+            entity.HasKey(e => e.TeacherAssignmentPercentageInterestId).HasName("PK__TeacherA__6E1EBD68B2183827");
 
-            entity.ToTable("TeacherAssignmentPercentageInterest");
+            entity.ToTable("TeacherAssignmentPercentageInterest", tb => tb.HasTrigger("TG_TeacherAssignmentPercentageInterest_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1341,9 +1381,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherCoordinationRoleInterest>(entity =>
         {
-            entity.HasKey(e => e.TeacherCoordinationRoleInterestId).HasName("PK__TeacherC__7C49B4768906D018");
+            entity.HasKey(e => e.TeacherCoordinationRoleInterestId).HasName("PK__TeacherC__7C49B476B3DD21E6");
 
-            entity.ToTable("TeacherCoordinationRoleInterest");
+            entity.ToTable("TeacherCoordinationRoleInterest", tb => tb.HasTrigger("TG_TeacherCoordinationRoleInterest_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1376,9 +1416,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherCourseInterest>(entity =>
         {
-            entity.HasKey(e => e.TeacherCourseInterestId).HasName("PK__TeacherC__126AF633717A737B");
+            entity.HasKey(e => e.TeacherCourseInterestId).HasName("PK__TeacherC__126AF6336052731E");
 
-            entity.ToTable("TeacherCourseInterest");
+            entity.ToTable("TeacherCourseInterest", tb => tb.HasTrigger("TG_TeacherCourseInterest_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1411,9 +1451,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherGroup>(entity =>
         {
-            entity.HasKey(e => e.TeacherGroupId).HasName("PK__TeacherG__1776241860AB382D");
+            entity.HasKey(e => e.TeacherGroupId).HasName("PK__TeacherG__17762418936FB6F0");
 
-            entity.ToTable("TeacherGroup");
+            entity.ToTable("TeacherGroup", tb => tb.HasTrigger("TG_TeacherGroup_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1426,9 +1466,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherInterest>(entity =>
         {
-            entity.HasKey(e => e.TeacherInterestId).HasName("PK__TeacherI__F7A67321CA1E0C74");
+            entity.HasKey(e => e.TeacherInterestId).HasName("PK__TeacherI__F7A673212A3C2F30");
 
-            entity.ToTable("TeacherInterest");
+            entity.ToTable("TeacherInterest", tb => tb.HasTrigger("TG_TeacherInterest_Update"));
 
             entity.Property(e => e.TeacherInterestId).ValueGeneratedNever();
             entity.Property(e => e.AutoTimeCreation)
@@ -1452,9 +1492,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherLocationInterest>(entity =>
         {
-            entity.HasKey(e => e.TeacherLocationInterestId).HasName("PK__TeacherL__9D8ACF74E9233E26");
+            entity.HasKey(e => e.TeacherLocationInterestId).HasName("PK__TeacherL__9D8ACF74FB940B7C");
 
-            entity.ToTable("TeacherLocationInterest");
+            entity.ToTable("TeacherLocationInterest", tb => tb.HasTrigger("TG_TeacherLocationInterest_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1487,9 +1527,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherPreference>(entity =>
         {
-            entity.HasKey(e => e.TeacherPreferenceId).HasName("PK__TeacherP__1D79322938FEB289");
+            entity.HasKey(e => e.TeacherPreferenceId).HasName("PK__TeacherP__1D793229609E07CD");
 
-            entity.ToTable("TeacherPreference");
+            entity.ToTable("TeacherPreference", tb => tb.HasTrigger("TG_TeacherPreference_Update"));
 
             entity.Property(e => e.TeacherPreferenceId).ValueGeneratedNever();
             entity.Property(e => e.AutoTimeCreation)
@@ -1504,9 +1544,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherTeacherGroup>(entity =>
         {
-            entity.HasKey(e => e.TeacherTeacherGroupId).HasName("PK__Teacher___462932EC29F9E9E0");
+            entity.HasKey(e => e.TeacherTeacherGroupId).HasName("PK__Teacher___462932ECFD2A23B5");
 
-            entity.ToTable("Teacher_TeacherGroup");
+            entity.ToTable("Teacher_TeacherGroup", tb => tb.HasTrigger("TG_Teacher_TeacherGroup_Update"));
 
             entity.Property(e => e.TeacherTeacherGroupId).HasColumnName("Teacher_TeacherGroupId");
             entity.Property(e => e.AutoTimeCreation)
@@ -1530,9 +1570,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TeacherType>(entity =>
         {
-            entity.HasKey(e => e.TeacherTypeId).HasName("PK__TeacherT__9EF526A75A97C46C");
+            entity.HasKey(e => e.TeacherTypeId).HasName("PK__TeacherT__9EF526A786DFE5BD");
 
-            entity.ToTable("TeacherType");
+            entity.ToTable("TeacherType", tb => tb.HasTrigger("TG_TeacherType_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1546,7 +1586,7 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Test>(entity =>
         {
-            entity.HasKey(e => e.TestId).HasName("PK__Test__8CC33160A973486E");
+            entity.HasKey(e => e.TestId).HasName("PK__Test__8CC331605D061D25");
 
             entity.ToTable("Test");
 
@@ -1561,9 +1601,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Topic>(entity =>
         {
-            entity.HasKey(e => e.TopicId).HasName("PK__Topic__022E0F5DA66C48F8");
+            entity.HasKey(e => e.TopicId).HasName("PK__Topic__022E0F5D13781D06");
 
-            entity.ToTable("Topic");
+            entity.ToTable("Topic", tb => tb.HasTrigger("TG_Topic_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1581,9 +1621,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<TopicCategory>(entity =>
         {
-            entity.HasKey(e => e.TopicCategoryId).HasName("PK__TopicCat__ABEF72C43B5523BD");
+            entity.HasKey(e => e.TopicCategoryId).HasName("PK__TopicCat__ABEF72C4B999075D");
 
-            entity.ToTable("TopicCategory");
+            entity.ToTable("TopicCategory", tb => tb.HasTrigger("TG_TopicCategory_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")
@@ -1597,9 +1637,9 @@ public partial class GenSisDbContext : DbContext
 
         modelBuilder.Entity<Trajectory>(entity =>
         {
-            entity.HasKey(e => e.TrajectoryId).HasName("PK__Trajecto__B6EA6AEA2BCE64D3");
+            entity.HasKey(e => e.TrajectoryId).HasName("PK__Trajecto__B6EA6AEA5501BA28");
 
-            entity.ToTable("Trajectory");
+            entity.ToTable("Trajectory", tb => tb.HasTrigger("TG_Trajectory_Update"));
 
             entity.Property(e => e.AutoTimeCreation)
                 .HasDefaultValueSql("(getdate())")

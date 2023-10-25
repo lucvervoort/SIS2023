@@ -25,5 +25,7 @@ public partial class RubricInstance
 
     public virtual Rubric Rubric { get; set; } = null!;
 
+    public virtual ICollection<RubricInstanceScore> RubricInstanceScores { get; set; } = new List<RubricInstanceScore>();
+
     public virtual Person ScorePerson { get; set; } = null!;
 }
