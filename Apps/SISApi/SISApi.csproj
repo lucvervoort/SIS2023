@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SIS.API\SIS.API\SIS.API.csproj" />
+    <ProjectReference Include="..\..\Libraries\SIS.API\SIS.API.csproj" />
   </ItemGroup>
 
 </Project>
