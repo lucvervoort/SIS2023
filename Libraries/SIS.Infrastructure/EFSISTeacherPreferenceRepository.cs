@@ -22,7 +22,6 @@ namespace SIS.Infrastructure
             }
         }
 
-
         public EFSISTeacherPreferenceRepository(ILogger<EFSISTeacherPreferenceRepository> logger, IConfiguration configuration, SisDbContext context)
         {
             _logger = logger;
@@ -51,11 +50,12 @@ namespace SIS.Infrastructure
             return _teacherPreferences;
         }
 
-
-
         public void Delete(TeacherPreference teacherPreference)
         {
-            if(!Exists(teacherPreference)) {return;}
+            if(!Exists(teacherPreference)) 
+            {
+                return;
+            }
 
             var efTeacherPreference = _context.TeacherPreferences.Where(tp => tp.Preference == teacherPreference.Preference && tp.TeacherPreferenceId == teacherPreference.TeacherPreferenceId).FirstOrDefault();
 
@@ -80,7 +80,9 @@ namespace SIS.Infrastructure
         public void Insert(TeacherPreference teacherPreference)
         {
             if(_teacherPreferences.ContainsKey(teacherPreference.Description)) 
-            { return; }
+            { 
+                return; 
+            }
 
             EFRepository.Models.TeacherPreference newTeacherPreference = new()
             {
@@ -91,9 +93,7 @@ namespace SIS.Infrastructure
 
             var efTeacherPreference = _context.TeacherPreferences.Add(newTeacherPreference).Entity;
             var count = _context.SaveChanges();
-
         }
-
 
         public void Update(TeacherPreference teacherPreferenceToUpdate, TeacherPreference newTeacherPreference)
         {

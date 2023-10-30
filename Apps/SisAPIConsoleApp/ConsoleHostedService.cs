@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SIS.API.DTO;
-using SIS.Domain.Interfaces;
-using SIS.Infrastructure.EFRepository.Models;
 
 internal partial class Program
 {
@@ -13,20 +11,16 @@ internal partial class Program
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
         private readonly IHostApplicationLifetime _appLifetime;
-        private readonly IImporter _lectorImporterService;
-        private readonly ISISTeacherRepository _repository;
         private int? _exitCode;
 
         public ConsoleHostedService(
             ILogger<ConsoleHostedService> logger,
             IConfiguration configuration,
-            IHostApplicationLifetime appLifetime,
-            IImporter lectorImporterService)
+            IHostApplicationLifetime appLifetime)
         {
             _logger = logger;
             _configuration = configuration;
             _appLifetime = appLifetime;
-            _lectorImporterService = lectorImporterService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -41,13 +35,13 @@ internal partial class Program
                     {
                         _logger.LogInformation("Flurl example of get and post...");
 
-                        var s = await "https://localhost:7107/Teacher".GetStringAsync();
+                        var s = await "http://localhost:5100/Teacher".GetStringAsync();
                         // NOTE: flurl still uses newtonsoft json...
-                        var teachers = await "https://localhost:7107/Teacher".GetJsonAsync<List<TeacherDTO>>(); // Separate DTO classes in a separate asembly to use Flurl independantly from ASP.NET
+                        var teachers = await "http://localhost:5100/Teacher".GetJsonAsync<List<TeacherDTO>>(); // Separate DTO classes in a separate asembly to use Flurl independantly from ASP.NET
 
-                        //var postResult = await "https://localhost:7107/Teacher".PostJsonAsync(new TeacherDTO { FirstName = "Bart", LastName = "Goovaerts", BirthDate = new DateTime(1966, 6, 5) });
+                        //var postResult = await "http://localhost:5100/Teacher".PostJsonAsync(new TeacherDTO { FirstName = "Bart", LastName = "Goovaerts", BirthDate = new DateTime(1966, 6, 5) });
 
-                        var teacherPreferences = await "https://localhost:7107/TeacherPreference/GetAll".GetJsonAsync<List<TeacherPreferenceDTO>>();
+                        var teacherPreferences = await "http://localhost:5100/TeacherPreference/GetAll".GetJsonAsync<List<TeacherPreferenceDTO>>();
 
                         // Connected service - pay attention: adds assemblies that are already present; please perform cleanup
                         // ---------------------------------------------------------------------------------------------------

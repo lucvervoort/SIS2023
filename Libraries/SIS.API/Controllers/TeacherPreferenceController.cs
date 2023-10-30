@@ -24,16 +24,11 @@ namespace SIS.API.Controllers
             _mapper = mapper;
         }
 
-
-
         [HttpGet("GetAll" , Name = "GetTeacherPreferences")]
         public ActionResult<IEnumerable<TeacherPreferenceDTO>> Get()
         {
             return Ok(_mapper.Map<List<TeacherPreferenceDTO>>(_repository.TeacherPreferences.Values.ToList()));
         }
-
-
-
 
         [HttpGet("Descriptions", Name = "GetTeacherPreferenceDescriptions")]
         public ActionResult<IEnumerable<String>> GetDescriptions()
@@ -42,8 +37,6 @@ namespace SIS.API.Controllers
             var descriptions = preferences.Select(tp => tp.Description);
             return Ok(descriptions);
         }
-
-
 
         [HttpDelete(Name = "DeleteTeacherPreference")]
         public ActionResult Delete(int id)
@@ -57,8 +50,6 @@ namespace SIS.API.Controllers
             _repository.Delete(teacherPreferenceToDelete);
             return NoContent();
         }
-
-
 
         [HttpPut("Update" , Name = "UpdateTeacherPreference")]
         public IActionResult Put([Required] int id, [FromBody] [Required] TeacherPreferenceDTO dto )
@@ -91,7 +82,7 @@ namespace SIS.API.Controllers
 
             //INSERT
             _repository.Insert(_mapper.Map<TeacherPreference>(dto));
-            return Ok("New Teacher Preference has succesfully been added.");
+            return CreatedAtAction("New Teacher Preference has succesfully been added.", teacherPreferenceToCreate);
         }
 
 

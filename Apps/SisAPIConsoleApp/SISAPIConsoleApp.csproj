@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SIS.Infrastructure\SIS.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Libraries\SISAPI.DTO\SISAPI.DTO.csproj" />
   </ItemGroup>
 

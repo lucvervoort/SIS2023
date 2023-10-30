@@ -12,6 +12,6 @@ namespace SIS.API.DTO
 
         [DataType(DataType.Date)]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")] // OK for swagger input, not ok for Newtonsoft deserialization
-        public DateTime BirthDate { get; set; } = DateTime.Now;
+        public DateTime BirthDate { get; set; } = DateTime.Now; // additionele properties zijn mogelijk
     }
 }
