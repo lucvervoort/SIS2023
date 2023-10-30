@@ -43,14 +43,19 @@ internal partial class Program
 
                         var s = await "https://localhost:7107/Teacher".GetStringAsync();
                         // NOTE: flurl still uses newtonsoft json...
-                        var json = await "https://localhost:7107/Teacher".GetJsonAsync<List<TeacherDTO>>(); // Separate DTO classes in a separate asembly to use Flurl independantly from ASP.NET
+                        var teachers = await "https://localhost:7107/Teacher".GetJsonAsync<List<TeacherDTO>>(); // Separate DTO classes in a separate asembly to use Flurl independantly from ASP.NET
 
                         //var postResult = await "https://localhost:7107/Teacher".PostJsonAsync(new TeacherDTO { FirstName = "Bart", LastName = "Goovaerts", BirthDate = new DateTime(1966, 6, 5) });
 
+                        var teacherPreferences = await "https://localhost:7107/TeacherPreference/GetAll".GetJsonAsync<List<TeacherPreferenceDTO>>();
+
                         // Connected service - pay attention: adds assemblies that are already present; please perform cleanup
+                        // ---------------------------------------------------------------------------------------------------
                         // See obj dir; if swaggerClient.cs does not compile, move to YOUR source code...
+                        // Careful: some assemblies are required for regeneration
                         var client = new SIS.API.ConnectedService.swaggerClient("https://localhost:7107", new HttpClient());
-                        var teachers = await client.GetTeachersAsync();
+                        var generatedTeachers = await client.GetTeachersAsync();
+                        var generatedTeacherPreferences = await client.GetTeacherPreferencesAsync();
 
                         _exitCode = 0;
                     }

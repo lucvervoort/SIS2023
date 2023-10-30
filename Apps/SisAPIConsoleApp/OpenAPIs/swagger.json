@@ -1,3 +1,6 @@
+// 20231030110701
+// https://localhost:7107/swagger/v1/swagger.json
+
 {
   "openapi": "3.0.1",
   "info": {
@@ -89,6 +92,186 @@
           }
         }
       }
+    },
+    "/TeacherPreference/GetAll": {
+      "get": {
+        "tags": [
+          "TeacherPreference"
+        ],
+        "operationId": "GetTeacherPreferences",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeacherPreferenceDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeacherPreferenceDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeacherPreferenceDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/TeacherPreference/Descriptions": {
+      "get": {
+        "tags": [
+          "TeacherPreference"
+        ],
+        "operationId": "GetTeacherPreferenceDescriptions",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/TeacherPreference": {
+      "delete": {
+        "tags": [
+          "TeacherPreference"
+        ],
+        "operationId": "DeleteTeacherPreference",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/TeacherPreference/Update": {
+      "put": {
+        "tags": [
+          "TeacherPreference"
+        ],
+        "operationId": "UpdateTeacherPreference",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherPreferenceDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherPreferenceDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherPreferenceDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/TeacherPreference/Post": {
+      "post": {
+        "tags": [
+          "TeacherPreference"
+        ],
+        "operationId": "CreateTeacherPreference",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherPreferenceDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherPreferenceDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherPreferenceDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -111,6 +294,24 @@
           "birthDate": {
             "type": "string",
             "format": "date"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TeacherPreferenceDTO": {
+        "type": "object",
+        "properties": {
+          "teacherPreferenceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "preference": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
