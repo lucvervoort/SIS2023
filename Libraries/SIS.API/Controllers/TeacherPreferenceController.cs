@@ -24,13 +24,13 @@ namespace SIS.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetAll" , Name = "GetTeacherPreferences")]
+        [HttpGet]
         public ActionResult<IEnumerable<TeacherPreferenceDTO>> Get()
         {
             return Ok(_mapper.Map<List<TeacherPreferenceDTO>>(_repository.TeacherPreferences.Values.ToList()));
         }
 
-        [HttpGet("Descriptions", Name = "GetTeacherPreferenceDescriptions")]
+        [HttpGet("Descriptions", Name = "Descriptions")]
         public ActionResult<IEnumerable<String>> GetDescriptions()
         {
             var preferences = _mapper.Map<List<TeacherPreferenceDTO>>(_repository.TeacherPreferences.Values.ToList());
@@ -38,7 +38,7 @@ namespace SIS.API.Controllers
             return Ok(descriptions);
         }
 
-        [HttpDelete(Name = "DeleteTeacherPreference")]
+        [HttpDelete(Name = "Delete")]
         public ActionResult Delete(int id)
         {
             var teacherPreferenceToDelete = _repository.TeacherPreferences.Values.FirstOrDefault(tp => tp.TeacherPreferenceId == id);
@@ -51,7 +51,7 @@ namespace SIS.API.Controllers
             return NoContent();
         }
 
-        [HttpPut("Update" , Name = "UpdateTeacherPreference")]
+        [HttpPut]
         public IActionResult Put([Required] int id, [FromBody] [Required] TeacherPreferenceDTO dto )
         {
             //If DTO comes back with default values or is null
@@ -69,7 +69,7 @@ namespace SIS.API.Controllers
 
 
 
-        [HttpPost("Post", Name = "CreateTeacherPreference")]
+        [HttpPost]
         public IActionResult Post([FromBody][Required] TeacherPreferenceDTO dto)
         {
             //If DTO comes back with default values or is null
@@ -82,7 +82,9 @@ namespace SIS.API.Controllers
 
             //INSERT
             _repository.Insert(_mapper.Map<TeacherPreference>(dto));
-            return CreatedAtAction("New Teacher Preference has succesfully been added.", teacherPreferenceToCreate);
+            //return CreatedAtAction("New Teacher Preference has succesfully been added.", dto);
+            return CreatedAtAction(nameof(Get), new { id = 1 }, dto);
+            // return Ok();
         }
 
 
