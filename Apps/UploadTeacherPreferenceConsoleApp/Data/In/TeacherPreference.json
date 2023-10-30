@@ -1,0 +1,14 @@
+[
+  {
+    "Preference": 1,
+    "Description": "Niet mogelijk"
+  },
+  {
+    "Preference": 2,
+    "Description": "Mogelijk"
+  },
+  {
+    "Preference": 3,
+    "Description": "Als het echt moet"
+  }
+]

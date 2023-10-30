@@ -30,7 +30,8 @@ namespace SISApi
                   .AddScoped<ISISTeacherTypeRepository, EFSISTeacherTypeRepository>() // here I could pick the ADO.NET alternative
                   .AddScoped<ISISRegistrationStateRepository, EFSISRegistrationStateRepository>() // here I could pick the ADO.NET alternative
                   .AddScoped<ISISPersonRepository, EFSISPersonRepository>() // here I could pick the ADO.NET alternative
-                  .AddScoped<ISISTeacherRepository, EFSISTeacherRepository>(); // here I could pick the ADO.NET alternative
+                  .AddScoped<ISISTeacherRepository, EFSISTeacherRepository>() // here I could pick the ADO.NET alternative
+                  .AddScoped<ISISTeacherPreferenceRepository, EFSISTeacherPreferenceRepository>(); // BertEnErnie
 
             builder.Services.AddAutoMapper(typeof(MappingConfig));
 

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SIS.API.DTO;
 using SIS.Domain.Interfaces;
 using AutoMapper;
+using SIS.Domain;
 
 namespace SIS.API.Controllers
 {
@@ -34,6 +35,24 @@ namespace SIS.API.Controllers
             return Ok(dtos);
             */
             return Ok(_mapper.Map<List<TeacherDTO>>(_repository.Teachers.Values.ToList()));
+        }
+
+        [HttpPost]
+        public ActionResult<TeacherDTO> Create(TeacherDTO teacherDto)
+        {
+            try
+            {
+                if (teacherDto == null)
+                {
+                    return BadRequest();
+                }
+                _repository.Insert(_mapper.Map<Teacher>(teacherDto));
+                return CreatedAtAction(nameof(Create), teacherDto);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

@@ -689,7 +689,7 @@ GO
 
 if not exists (select * from sysobjects where name='TeacherPreference' and xtype='U')
 CREATE TABLE TeacherPreference (
-    TeacherPreferenceId INT NOT NULL PRIMARY KEY,
+    TeacherPreferenceId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Preference INT NOT NULL DEFAULT 1,
     Description NVARCHAR(MAX),
 

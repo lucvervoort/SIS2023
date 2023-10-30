@@ -112,6 +112,7 @@ namespace SIS.Infrastructure
                 EFRepository.Models.Teacher newTeacher = new()
                 {
                     Email = teacher.Email,
+                    Abbreviation = teacher.Abbreviation,
                     Person = efPerson,
                     PersonId = efPerson.PersonId,
                     TeacherType = efTeacherType,
@@ -119,6 +120,7 @@ namespace SIS.Infrastructure
                 };
                 var efTeacher = _context.Teachers.Add(newTeacher).Entity;
                 var count = _context.SaveChanges();
+                _teachers.Add(teacher.FirstName + " " + teacher.LastName, teacher);
             }
         }
 
