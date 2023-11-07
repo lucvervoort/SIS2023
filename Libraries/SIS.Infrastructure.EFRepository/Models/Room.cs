@@ -15,7 +15,7 @@ public partial class Room
 
     public int? RoomKindId { get; set; }
 
-    public int Capacity { get; set; }
+    public int? Capacity { get; set; }
 
     public DateTime AutoTimeCreation { get; set; }
 

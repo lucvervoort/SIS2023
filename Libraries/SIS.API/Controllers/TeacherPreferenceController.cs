@@ -1,16 +1,20 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SIS.API.DTO;
 using SIS.Domain;
 using SIS.Domain.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 
 namespace SIS.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+#if ProducesConsumes
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+#endif
     public class TeacherPreferenceController : ControllerBase
     {
         private readonly ILogger<TeacherPreferenceController> _logger;

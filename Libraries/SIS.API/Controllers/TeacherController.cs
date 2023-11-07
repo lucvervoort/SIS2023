@@ -4,11 +4,16 @@ using SIS.API.DTO;
 using SIS.Domain.Interfaces;
 using AutoMapper;
 using SIS.Domain;
+using System.Net.Mime;
 
 namespace SIS.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+#if ProducesConsumes
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+#endif
     public class TeacherController : ControllerBase
     {
         private readonly ILogger<TeacherController> _logger;

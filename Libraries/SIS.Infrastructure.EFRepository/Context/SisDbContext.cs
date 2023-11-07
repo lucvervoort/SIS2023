@@ -75,3 +75,5 @@ public partial class SisDbContext : GenSisDbContext
         }
     }
 }
+
+// Alternative: https://github.com/JonPSmith/EfCore.SoftDeleteServices/tree/master/SoftDeleteServices/Concrete/Internal

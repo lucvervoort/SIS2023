@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Libraries\SISAPI.DTO\SISAPI.DTO.csproj" />
+	  <ProjectReference Include="..\..\Libraries\SISAPI.DTO\SISAPI.DTO.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
