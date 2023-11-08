@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace SIS.API.Controllers
 {
+    /// <summary>
+    /// Gedocumenteerde Campus Controller
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
 #if ProducesConsumes
@@ -18,17 +21,22 @@ namespace SIS.API.Controllers
 #endif
     public class CampusController : ControllerBase
     {
+        #region Private members
         private readonly ILogger<CampusController> _logger;
         private readonly ISISCampusRepository _repository;
         private readonly IMapper _mapper;
+        #endregion
 
+        #region Ctor
         public CampusController(ILogger<CampusController> logger, ISISCampusRepository repository, IMapper mapper)
         {
             _logger = logger;
             _repository = repository;
             _mapper = mapper;            
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Een overzicht van alle campussen
         /// </summary>
@@ -70,6 +78,13 @@ namespace SIS.API.Controllers
             return NoContent();
         }
 
+        /*
+         * For a PUT request: HTTP 200, HTTP 204 should imply "resource updated successfully". HTTP 201 if the PUT request created a new resource.
+         * For a DELETE request: HTTP 200 or HTTP 204 should imply "resource deleted successfully".
+         * HTTP 202 can also be returned by either operation and would imply that the instruction was accepted by the server, but not fully applied yet. It's possible that the operation fails later, so the client shouldn't fully assume that it was success.
+         * A client that receives a status code it doesn't recognize, but it's starting with 2 should treat it as a 200 OK.
+         */
+
         [HttpPut]
         public IActionResult Put([Required] int id, [FromBody][Required] CampusDTO dto)
         {
@@ -80,6 +95,11 @@ namespace SIS.API.Controllers
             }
 
             var campusToUpdate = _repository.Campus.Values.FirstOrDefault(cmp => cmp.CampusId == id);
+
+            if (campusToUpdate == null)
+            {
+                return NotFound();
+            }
 
             //UPDATE
             _repository.Update(campusToUpdate, _mapper.Map<Campus>(dto));
@@ -96,7 +116,7 @@ namespace SIS.API.Controllers
             //If DTO comes back with default values or is null
             if (!IsValid(dto))
             {
-                return BadRequest("Invalid request data.");
+                return BadRequest("Invalid campus request data.");
             }
 
             var campusToCreate = _mapper.Map<Campus>(dto);
@@ -104,11 +124,11 @@ namespace SIS.API.Controllers
             //INSERT
             var campus = _repository.Insert(_mapper.Map<Campus>(dto));
             dto.CampusId = campus.CampusId;
+
             return CreatedAtAction(nameof(Get), new { id = campus.CampusId }, dto);
         }
 
-
-        private bool IsValid(CampusDTO dto)
+        private static bool IsValid(CampusDTO dto)
         {
             if (dto == null ||
                 (dto.CampusId == 0 &&
@@ -116,5 +136,6 @@ namespace SIS.API.Controllers
             { return false; }
             return true;
         }
+        #endregion
     }
 }

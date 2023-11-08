@@ -32,10 +32,10 @@ public partial class SisDbContext : GenSisDbContext
         base.OnModelCreating(modelBuilder);
 
         // For RAW SQL queries...
-
         modelBuilder.Entity<TeacherNameDTO>().HasNoKey();
 
-        // SOFT DELETE
+        /*
+        // SOFT DELETE -- Reflection implementation
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             // 1. Get or add the IsDeleted property if necessary
@@ -54,6 +54,24 @@ public partial class SisDbContext : GenSisDbContext
                 modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
             }
         }
+        */
+    }
+
+    // SOFT DELETE - simple; if cascading deletes are required, more coding is needed 
+    public override int SaveChanges()
+    {
+        var entities = ChangeTracker.Entries()
+            .Where(e => e.State == EntityState.Deleted && e.Metadata.GetProperties()
+            .Any(x => x.Name == "IsDeleted"))
+            .ToList();
+
+        foreach (var entity in entities)
+        {
+            entity.State = EntityState.Unchanged;
+            entity.CurrentValues["IsDeleted"] = true;
+        }
+
+        return base.SaveChanges();
     }
 
     public DbSet<TeacherNameDTO> TeacherNameDTO { get; set; }

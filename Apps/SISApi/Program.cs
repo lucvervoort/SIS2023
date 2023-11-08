@@ -7,7 +7,7 @@ using SIS.API.Extensions;
 using SIS.Domain.Interfaces;
 using SIS.Infrastructure;
 using SIS.Infrastructure.EFRepository.Context;
-using WebApiDocumentation.Extensions;
+using SISApi.Extensions;
 
 namespace SISApi
 {
@@ -53,7 +53,7 @@ namespace SISApi
             builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
             // Configure the API versioning properties of the project. 
-            // builder.Services.AddApiVersioningConfigured();
+            builder.Services.AddApiVersioningConfigured();
 
             // Add a Swagger generator and Automatic Request and Response annotations:
             builder.Services.AddSwaggerSwashbuckleConfigured();

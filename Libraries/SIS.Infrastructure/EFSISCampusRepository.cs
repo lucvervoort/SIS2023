@@ -8,19 +8,14 @@ namespace SIS.Infrastructure
 {
     public class EFSISCampusRepository : ISISCampusRepository
     {
+        #region Private members
         private readonly ILogger<EFSISCampusRepository> _logger;
         private readonly IConfiguration _configuration;
         private readonly SisDbContext _context;
+        private static Dictionary<string, Campus>? _campus;
+        #endregion
 
-        private readonly Dictionary<string, Campus> _campus = new();
-        public Dictionary<string, Campus> Campus
-        {
-            get
-            {
-                if (_campus != null) return _campus;
-                return RefreshCampus();
-            }
-        }
+        public Dictionary<string, Campus>? Campus => _campus;
 
         public EFSISCampusRepository(ILogger<EFSISCampusRepository> logger, IConfiguration configuration, SisDbContext context)
         {
@@ -28,15 +23,25 @@ namespace SIS.Infrastructure
             _configuration = configuration;
             _context = context;
 
-            RefreshCampus();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            if(_campus == null)
+            {
+                _campus = new();
+                RefreshCampus();
+            }
         }
 
         public Dictionary<string, Campus> RefreshCampus()
         {
-            _campus.Clear(); // reuse dictionary object
-            var dbCampus = _context.Campuses.ToList();
-            foreach (var campus in dbCampus)
-            {
+           _campus.Clear();
+           
+           var dbCampus = _context.Campuses.ToList();
+           foreach (var campus in dbCampus)
+           {
                 var cmp = new Campus
                 {
                     CampusId = campus.CampusId,
@@ -44,8 +49,8 @@ namespace SIS.Infrastructure
                 };
 
                 _campus.Add(cmp.Name, cmp);
-            }
-            return _campus;
+           }
+           return _campus;
         }
 
         public void Delete(Campus campus)

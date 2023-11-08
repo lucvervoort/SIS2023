@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace WebApiDocumentation.Extensions
+namespace SISApi.Extensions
 {
     /// <summary>
     /// Configure the Swagger generator.
@@ -22,7 +22,7 @@ namespace WebApiDocumentation.Extensions
         /// <param name="services"></param>
         public static void AddSwaggerSwashbuckleConfigured(this IServiceCollection services)
         {
-            //services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerSwashbuckleOptions>();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerSwashbuckleOptions>();
 
             // Configures ApiExplorer (needed from ASP.NET Core 6.0 on).
             services.AddEndpointsApiExplorer();

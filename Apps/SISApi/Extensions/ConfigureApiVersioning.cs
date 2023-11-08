@@ -1,6 +1,4 @@
 ﻿using Asp.Versioning;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace SIS.API.Extensions
 {
@@ -34,9 +32,20 @@ namespace SIS.API.Extensions
                         // Use the following, if you would like to specify the version as a Media Type Header.
                         new MediaTypeApiVersionReader("api-version")
                     );
+            })
+            // READY for .NET 8:
+            .AddMvc() // new; brings in MVC Core support
+            .AddApiExplorer(options =>
+            {
+                // Format the version as "v{Major}.{Minor}.{Patch}" (e.g. v1.0.0).
+                options.GroupNameFormat = "'v'VVV";
+
+                // Note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                // can also be used to control the format of the API version in route templates
+                options.SubstituteApiVersionInUrl = true;
             });
 
-            /*
+            /* OLD:
             // Support versioning on our documentation.
             services.AddVersionedApiExplorer(options =>
             {
