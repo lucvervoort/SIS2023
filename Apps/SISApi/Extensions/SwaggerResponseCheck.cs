@@ -48,7 +48,7 @@ namespace SISApi.Extensions
                     {
                         context.Response.StatusCode = 500;
                         buffer.Seek(0, SeekOrigin.Begin);
-                        await context.Response.WriteAsync($"OpenAPI specification exception, unsupported status code: {context.Response.StatusCode}\npath: {context.Request.Path}");
+                        await context.Response.WriteAsync($"OpenAPI specification exception, unsupported status code: {context.Response.StatusCode}\nPath: {context.Request.Path}");
                     }
                     buffer.Seek(0, SeekOrigin.Begin);
 

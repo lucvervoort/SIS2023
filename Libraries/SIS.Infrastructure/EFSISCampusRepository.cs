@@ -65,6 +65,7 @@ namespace SIS.Infrastructure
             try
             {
                 var efRemove = _context.Remove(efCampus).Entity;
+                _campus.Remove(campus.Name);
                 var count = _context.SaveChanges();
             }
             catch (Exception ex)
