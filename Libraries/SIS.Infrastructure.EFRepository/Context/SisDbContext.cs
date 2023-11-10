@@ -57,7 +57,7 @@ public partial class SisDbContext : GenSisDbContext
         */
     }
 
-    // SOFT DELETE - simple; if cascading deletes are required, more coding is needed 
+    // SOFT DELETE - simple; if cascading deletes are required, more coding is needed, see e.g. https://github.com/JonPSmith/EfCore.SoftDeleteServices
     public override int SaveChanges()
     {
         var entities = ChangeTracker.Entries()
