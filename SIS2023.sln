@@ -73,6 +73,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UraniumUI.Validations.DataA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UraniumUI.WebComponents", "Libraries\SIS.Infrastructure.ThirdParty\Uranium\UraniumUI.WebComponents\UraniumUI.WebComponents.csproj", "{EA1C2FB9-243F-43AE-841D-4383B5F1193E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Camera.MAUI", "Libraries\SIS.Infrastructure.ThirdParty\Camera.MAUI\Camera.MAUI.csproj", "{67E45D03-512C-4265-8ADB-A84B2AE82A0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeProjectAI", "CodeProjectAI\CodeProjectAI.csproj", "{5C7686D4-2CB4-403F-88F6-09234DFDCA84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +181,14 @@ Global
 		{EA1C2FB9-243F-43AE-841D-4383B5F1193E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA1C2FB9-243F-43AE-841D-4383B5F1193E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA1C2FB9-243F-43AE-841D-4383B5F1193E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E45D03-512C-4265-8ADB-A84B2AE82A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E45D03-512C-4265-8ADB-A84B2AE82A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E45D03-512C-4265-8ADB-A84B2AE82A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E45D03-512C-4265-8ADB-A84B2AE82A0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C7686D4-2CB4-403F-88F6-09234DFDCA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C7686D4-2CB4-403F-88F6-09234DFDCA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C7686D4-2CB4-403F-88F6-09234DFDCA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C7686D4-2CB4-403F-88F6-09234DFDCA84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,6 +222,8 @@ Global
 		{10EEFC2C-220C-46D0-8D28-3761387417C0} = {5384FFDE-80DE-4BFD-9AC4-279B61F6A6B6}
 		{FBE96E70-C6D1-44B3-9FF9-AADE62FC40AE} = {111E23DF-3191-423B-B8DA-46B3657AADBA}
 		{EA1C2FB9-243F-43AE-841D-4383B5F1193E} = {111E23DF-3191-423B-B8DA-46B3657AADBA}
+		{67E45D03-512C-4265-8ADB-A84B2AE82A0E} = {5384FFDE-80DE-4BFD-9AC4-279B61F6A6B6}
+		{5C7686D4-2CB4-403F-88F6-09234DFDCA84} = {553D56EC-850F-4950-87D8-EE087E30ACF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42EA0099-0828-4F80-826E-1166F889E264}

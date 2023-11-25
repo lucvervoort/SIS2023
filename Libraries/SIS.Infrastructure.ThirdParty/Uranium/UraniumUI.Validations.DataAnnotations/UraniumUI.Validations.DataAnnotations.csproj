@@ -30,4 +30,8 @@
     <PackageReference Include="InputKit.Maui" Version="4.4.0-pre.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+  </ItemGroup>
+
 </Project>

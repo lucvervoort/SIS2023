@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SIS.Domain\SIS.Domain\SIS.Domain.csproj" />
     <ProjectReference Include="..\SIS.Infrastructure.EFRepository\SIS.Infrastructure.EFRepository.csproj" />
     <ProjectReference Include="..\SIS.Infrastructure.ThirdParty\SuperConvert\SuperConvert.Abstraction\SuperConvert.Abstraction.csproj" />

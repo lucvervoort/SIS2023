@@ -6,10 +6,11 @@ namespace UraniumApp;
 [ContentProperty(nameof(ShowcaseView))]
 public class ViewShowcaseView : Border
 {
-    protected Grid rootGrid = new Grid();
-    protected ContentView contentView = new ContentView { HorizontalOptions = LayoutOptions.Start, Padding = 10 };
-    protected ContentView sidePanelContentView = new ContentView();
-    protected ContentView bottomContentView = new ContentView();
+    protected Grid rootGrid = new();
+    protected ContentView contentView = new() { HorizontalOptions = LayoutOptions.Start, Padding = 10 };
+    protected ContentView sidePanelContentView = new();
+    protected ContentView bottomContentView = new();
+
     public ViewShowcaseView()
     {
         this.SetAppThemeColor(

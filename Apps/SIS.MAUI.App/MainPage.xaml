@@ -11,8 +11,8 @@
 
     <VerticalStackLayout Spacing="25">
         <StackLayout StyleClass="PrimaryContainer" Padding="20" HeightRequest="150">
-            <Label Text="Hello, Uranium! ☢️" FontSize="Large" />
-            <Label Text="Welcome to the demo app." />
+            <Label Text="Hello, Teacher! ☢️" FontSize="Large" />
+            <Label Text="Welcome to SIS 2023" />
         </StackLayout>
       
         <Grid ColumnDefinitions="Auto,*">
@@ -25,7 +25,7 @@
         </Grid>
 
 
-      <uranium:SelectableLabel Text="Hello, World! This text should be selectable!" />
+      <uranium:SelectableLabel Text="Hello, Teacher!" />
       
     </VerticalStackLayout>
 </ContentPage>

@@ -9,16 +9,17 @@
     xmlns:bsheet="clr-namespace:UraniumApp.Pages.BottomSheets"
     xmlns:backdrop="clr-namespace:UraniumApp.Pages.Backdrops"
     xmlns:dataGrid="clr-namespace:UraniumApp.Pages.DataGrids"
+    xmlns:faces="clr-namespace:UraniumApp.Pages.FacesViews"    
     xmlns:tabs="clr-namespace:UraniumApp.Pages.TabViews"
     xmlns:treeViews="clr-namespace:UraniumApp.Pages.TreeViews"
     xmlns:inputFields="clr-namespace:UraniumApp.Pages.InputFields"
-    xmlns:autocompletes="clr-namespace:UraniumApp.Pages.AutoCompleteTextField"
+    xmlns:autocompletes="clr-namespace:UraniumApp.Pages.AutoCompleteTextField"    
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}"
     Shell.FlyoutBehavior="{OnIdiom Desktop=Locked, Default=Flyout}">
 
     <Shell.FlyoutHeader>
         <VerticalStackLayout StyleClass="PrimaryContainer" Padding="20">
-            <Label Text="☢️&#xA;SIS UI" FontSize="Large" HorizontalTextAlignment="Center" Margin="10" />
+            <Label Text="☢️&#xA;SIS 2023" FontSize="Large" HorizontalTextAlignment="Center" Margin="10" />
 
             <Label Text="App Theme" HorizontalOptions="Center"/>
 
@@ -78,6 +79,15 @@
         <ShellContent Title="Simple" ContentTemplate="{DataTemplate backdrop:SimpleBackdropPage}"/>
     </FlyoutItem>
 -->
+
+    <FlyoutItem Title="Faces" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Grid_3x3}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Faces" ContentTemplate="{DataTemplate faces:FacesViewPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static m:MaterialOutlined.Grid_3x3}" Color="{StaticResource Primary}" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </FlyoutItem>
+    
     <FlyoutItem Title="DataGrid" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Grid_3x3}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
         <ShellContent Title="DataGrid" ContentTemplate="{DataTemplate dataGrid:DataGridsIndexPage}">
             <ShellContent.Icon>

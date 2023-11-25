@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<Import Project="..\..\Libraries\SIS.Infrastructure.ThirdParty\maui.common.props" />
 
@@ -31,6 +31,7 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+    <DefaultLanguage>nl-BE</DefaultLanguage>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -52,12 +53,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+	  <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="3.0.0" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 	  <PackageReference Include="DotNurse.Injector" Version="2.5.2" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="ReactiveUI.Fody" Version="19.4.1" />
+      <PackageReference Include="ReactiveUI.Fody" Version="19.5.1" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\CodeProjectAI\CodeProjectAI.csproj" />
+	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure.ThirdParty\Camera.MAUI\Camera.MAUI.csproj" />
 	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure.ThirdParty\Uranium\UraniumUI.Blurs\UraniumUI.Blurs.csproj" />
 	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure.ThirdParty\Uranium\UraniumUI.WebComponents\UraniumUI.WebComponents.csproj" />
 	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure.ThirdParty\Uranium\UraniumUI.Dialogs.Mopups\UraniumUI.Dialogs.Mopups.csproj" />
@@ -73,6 +79,10 @@
 	  <MauiXaml Update="Pages\**\*.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+  
+	<ItemGroup>
+	  <Folder Include="Pages\Faces\" />
 	</ItemGroup>
 
 </Project>

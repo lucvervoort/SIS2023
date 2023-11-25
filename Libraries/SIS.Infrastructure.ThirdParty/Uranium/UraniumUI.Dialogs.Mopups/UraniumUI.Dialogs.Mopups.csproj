@@ -26,11 +26,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mopups" Version="1.1.0" />
+    <PackageReference Include="Mopups" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UraniumUI\UraniumUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

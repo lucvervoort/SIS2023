@@ -3,7 +3,8 @@ using CommunityToolkit.Maui;
 using DotNurse.Injector;
 using Mopups.Hosting;
 using UraniumUI;
-using UraniumUI.Dialogs;
+//using UraniumUI.Dialogs;
+using Camera.MAUI;
 
 namespace UraniumApp;
 
@@ -15,6 +16,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseMauiCommunityToolkitMediaElement()
             .UseUraniumUI()
             .UseUraniumUIMaterial()
             .UseUraniumUIBlurs(false)
@@ -27,7 +29,9 @@ public static class MauiProgram
                 fonts.AddFontAwesomeIconFonts();
                 fonts.AddMaterialIconFonts();
                 fonts.AddFluentIconFonts();
-            });
+            })
+            .UseMauiApp<App>()
+            .UseMauiCameraView(); // Add the use of the plugging
 
         var thisAssembly = typeof(MauiProgram).Assembly;
 
