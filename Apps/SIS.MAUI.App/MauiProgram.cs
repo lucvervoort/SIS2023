@@ -47,3 +47,5 @@ public static class MauiProgram
         return builder.Build();
     }
 }
+
+// [RegisterAs(typeof(IBookRepository))]

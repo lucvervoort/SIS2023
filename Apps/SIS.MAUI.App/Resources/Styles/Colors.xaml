@@ -4,14 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Color x:Key="Primary">#52D681</Color>
+    <Color x:Key="Primary">#527ad6</Color>
     <Color x:Key="OnPrimary">#FFFFFF</Color>
-    <Color x:Key="PrimaryContainer">#baefcd</Color>
-    <Color x:Key="OnPrimaryContainer">#176031</Color>
+    <Color x:Key="PrimaryContainer">#529bd6</Color>
+    <Color x:Key="OnPrimaryContainer">#0a0e80</Color>
 
-    <Color x:Key="Secondary">#B5FF7D</Color>
+    <Color x:Key="Secondary">#56b7e8</Color>
     <Color x:Key="OnSecondary">#2C3639</Color>
-    <Color x:Key="SecondaryContainer">#e1ffcb</Color>
+    <Color x:Key="SecondaryContainer">#6fd3f7</Color>
     <Color x:Key="OnSecondaryContainer">#3F4E4F</Color>
 
     <Color x:Key="Tertiary">#FDDB3A</Color>
@@ -39,19 +39,19 @@
     <Color x:Key="InverseSurface">#313033</Color>
     <Color x:Key="InverseOnSurface">#F4EFF4</Color>
 
-    <Color x:Key="InversePrimary">#52D681</Color>
+    <Color x:Key="InversePrimary">#5ba5f5</Color>
     <Color x:Key="Scrim">#000000</Color>
 
     <!--DARK COLORS-->
-    <Color x:Key="PrimaryDark">#a8eac0</Color>
-    <Color x:Key="OnPrimaryDark">#1c783d</Color>
-    <Color x:Key="PrimaryContainerDark">#1a6c37</Color>
-    <Color x:Key="OnPrimaryContainerDark">#baefcd</Color>
+    <Color x:Key="PrimaryDark">#7ac4f5</Color>
+    <Color x:Key="OnPrimaryDark">#5a8df2</Color>
+    <Color x:Key="PrimaryContainerDark">#1f3ff2</Color>
+    <Color x:Key="OnPrimaryContainerDark">#6e82f0</Color>
 
-    <Color x:Key="SecondaryDark">#daffbe</Color>
-    <Color x:Key="OnSecondaryDark">#52be00</Color>
-    <Color x:Key="SecondaryContainerDark">#193900</Color>
-    <Color x:Key="OnSecondaryContainerDark">#e1ffcb</Color>
+    <Color x:Key="SecondaryDark">#81aff0</Color>
+    <Color x:Key="OnSecondaryDark">#6393f2</Color>
+    <Color x:Key="SecondaryContainerDark">#141f99</Color>
+    <Color x:Key="OnSecondaryContainerDark">#63b5f7</Color>
 
     <Color x:Key="TertiaryDark">#feed9d</Color>
     <Color x:Key="OnTertiaryDark">#9a7f02</Color>

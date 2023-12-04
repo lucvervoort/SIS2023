@@ -60,6 +60,28 @@ public partial class SisDbContext : GenSisDbContext
     // SOFT DELETE - simple; if cascading deletes are required, more coding is needed, see e.g. https://github.com/JonPSmith/EfCore.SoftDeleteServices
     public override int SaveChanges()
     {
+        return base.SaveChanges();
+    }
+
+    public override int SaveChanges(bool acceptAllChangesOnSuccess)
+    {
+        OnBeforeSaveChanges();
+        return base.SaveChanges(acceptAllChangesOnSuccess);
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+    {
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        OnBeforeSaveChanges();
+        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+    }
+
+    private void OnBeforeSaveChanges()
+    {
         var entities = ChangeTracker.Entries()
             .Where(e => e.State == EntityState.Deleted && e.Metadata.GetProperties()
             .Any(x => x.Name == "IsDeleted"))
@@ -70,8 +92,6 @@ public partial class SisDbContext : GenSisDbContext
             entity.State = EntityState.Unchanged;
             entity.CurrentValues["IsDeleted"] = true;
         }
-
-        return base.SaveChanges();
     }
 
     public DbSet<TeacherNameDTO> TeacherNameDTO { get; set; }

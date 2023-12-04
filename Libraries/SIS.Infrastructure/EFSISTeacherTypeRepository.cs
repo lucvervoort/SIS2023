@@ -6,7 +6,6 @@ using SIS.Infrastructure.EFRepository.Context;
 
 namespace SIS.Infrastructure
 {
-
     public class EFSISTeacherTypeRepository : ISISTeacherTypeRepository
     {
         private readonly ILogger<EFSISTeacherTypeRepository> _logger;

@@ -30,7 +30,7 @@ public partial class FacesViewPage : ContentPage
         {
             _serverLive = response.success;
             //if (response.success)
-            //    SetStatus("Connection to AI Server established", Color.Green);
+            //    SetStatus("Connection to AI Server established", Color.Blue);
             //else
             //    ShowError("Unable to connect to AI server");
         }

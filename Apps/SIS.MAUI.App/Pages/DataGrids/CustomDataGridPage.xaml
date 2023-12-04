@@ -51,8 +51,8 @@
                         <material:DataGridColumn Title="Student Age">
                             <material:DataGridColumn.CellItemTemplate>
                                 <DataTemplate>
-                                    <Frame BackgroundColor="Green" uranium:DynamicTint.BackgroundColorOpacity="0.5" Padding="5" CornerRadius="0">
-                                        <Label Text="{Binding Age}" TextColor="Blue" />
+                                    <Frame BackgroundColor="Blue" uranium:DynamicTint.BackgroundColorOpacity="0.5" Padding="5" CornerRadius="0">
+                                        <Label Text="{Binding Age}" TextColor="Orange" />
                                     </Frame>
                                 </DataTemplate>
                             </material:DataGridColumn.CellItemTemplate>

@@ -4,11 +4,9 @@ using Microsoft.Extensions.Logging;
 using SIS.Domain;
 using SIS.Domain.Interfaces;
 using SIS.Infrastructure.EFRepository.Context;
-using System.Linq;
 
 namespace SIS.Infrastructure
 {
-
     public class EFSISTeacherRepository : ISISTeacherRepository
     {
         private readonly ILogger<EFSISTeacherRepository> _logger;

@@ -17,9 +17,11 @@
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}"
     Shell.FlyoutBehavior="{OnIdiom Desktop=Locked, Default=Flyout}">
 
+    <!-- &#xA; is a feed character -->
+    
     <Shell.FlyoutHeader>
         <VerticalStackLayout StyleClass="PrimaryContainer" Padding="20">
-            <Label Text="☢️&#xA;SIS 2023" FontSize="Large" HorizontalTextAlignment="Center" Margin="10" />
+            <Label Text="☕&#xA;SIS 2023" FontSize="Large" HorizontalTextAlignment="Center" Margin="10" />
 
             <Label Text="App Theme" HorizontalOptions="Center"/>
 

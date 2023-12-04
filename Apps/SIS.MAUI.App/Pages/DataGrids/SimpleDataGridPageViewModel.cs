@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using DotNurse.Injector.Attributes;
+using SIS.Domain.Interfaces;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UraniumApp.Pages.DataGrids;
 public class SimpleDataGridPageViewModel : BindableObject
 {
 	static Random random = new();
 	public List<Student> Items { get; } = new();
+
+	[InjectService] public ISISTeacherRepository TeacherRepository { get; private set; }
+
 	public SimpleDataGridPageViewModel()
 	{
 		for (int i = 0; i < 10; i++)

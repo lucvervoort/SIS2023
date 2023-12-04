@@ -73,6 +73,7 @@
 	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure.ThirdParty\Uranium\UraniumUI.Icons.SegoeFluent\UraniumUI.Icons.SegoeFluent.csproj" />
 	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure.ThirdParty\Uranium\UraniumUI.Material\UraniumUI.Material.csproj" />
 	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure.ThirdParty\Uranium\UraniumUI.Validations.DataAnnotations\UraniumUI.Validations.DataAnnotations.csproj" />
+	  <ProjectReference Include="..\..\Libraries\SIS.Infrastructure\SIS.Infrastructure.csproj" />
 	</ItemGroup>
   
 	<ItemGroup>

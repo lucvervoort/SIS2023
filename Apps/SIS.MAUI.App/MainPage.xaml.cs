@@ -1,6 +1,4 @@
-﻿using UraniumUI.Pages;
-
-namespace UraniumApp;
+﻿namespace UraniumApp;
 
 public partial class MainPage : ContentPage
 {
